@@ -16,8 +16,8 @@ public class BankDetails {
     private String nomBanque;
 
     @ManyToOne
-    @JoinColumn(name = "id_Users")
-    private Users users;
+    @JoinColumn(name = "id_User")
+    private User user;
 
     @OneToOne
     @JoinColumn(name = "id_ExpenseDeclaration", unique = true)

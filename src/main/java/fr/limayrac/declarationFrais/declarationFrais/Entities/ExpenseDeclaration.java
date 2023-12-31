@@ -18,8 +18,8 @@ public class ExpenseDeclaration {
     private Date dateValidation;
 
     @ManyToOne
-    @JoinColumn(name = "id_Users")
-    private Users users;
+    @JoinColumn(name = "id_User")
+    private User user;
 
     @OneToMany(mappedBy = "expenseDeclaration", cascade = CascadeType.ALL)
     private List<TransportExpense> transportExpenses;
