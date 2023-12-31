@@ -5,22 +5,17 @@ import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "ExpenseLog")
-public class ExpenseLog {
+@Table(name = "TransportExpense")
+public class TransportExpense {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Double montantTotal;
-    private Double montantRepas;
-    private Double montantLogement;
-    private Double montantTransport;
-    private Date typeLogement;
-    private Date TypeTransport;
-
-    @Temporal(TemporalType.DATE)
-    private Date created_ta;
+    private String transportationType;
+    private String departureLocation;
+    private Double montant;
+    private Date created_at;
 
     @ManyToOne
     @JoinColumn(name = "id_ExpenseDeclaration")
@@ -28,5 +23,4 @@ public class ExpenseLog {
 
     // getters and setters
 }
-
 

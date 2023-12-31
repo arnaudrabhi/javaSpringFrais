@@ -1,6 +1,7 @@
 package fr.limayrac.declarationFrais.declarationFrais.Entities;
 
 import jakarta.persistence.*;
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -10,18 +11,28 @@ public class ExpenseDeclaration {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private java.sql.Date dateDeclaration;
+    private Date dateDeclaration;
     private String lieuFormation;
-    private String intituleFormation;
-    private String statut;
+    private int statut;
+    private Date dateCreation;
+    private Date dateValidation;
 
     @ManyToOne
-    @JoinColumn(name = "professor_id")
-    private Professor professor;
+    @JoinColumn(name = "id_Users")
+    private Users users;
 
     @OneToMany(mappedBy = "expenseDeclaration", cascade = CascadeType.ALL)
-    private List<ExpenseDetail> expenseDetails;
+    private List<TransportExpense> transportExpenses;
 
-    // getters and setters
+    @OneToMany(mappedBy = "expenseDeclaration", cascade = CascadeType.ALL)
+    private List<AccommodationExpense> accommodationExpenses;
+
+    @OneToMany(mappedBy = "expenseDeclaration", cascade = CascadeType.ALL)
+    private List<MealExpense> mealExpenses;
+
+    @OneToMany(mappedBy = "expenseDeclaration", cascade = CascadeType.ALL)
+    private List<ExpenseLog> expenseLogs;
+
+    // autres attributs et getters and setters
 }
 

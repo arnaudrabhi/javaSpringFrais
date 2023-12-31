@@ -1,10 +1,11 @@
 package fr.limayrac.declarationFrais.declarationFrais.Entities;
 
 import jakarta.persistence.*;
+
 import java.util.List;
 
 @Entity
-public class User {
+public class Users {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,13 +13,14 @@ public class User {
 
     private String nom;
     private String prenom;
-    private String email;
-    private String password;
+    private String role;
 
-    @OneToMany(mappedBy = "professor")
+    // getters and setters
+
+    @OneToMany(mappedBy = "user")
     private List<ExpenseDeclaration> expenseDeclarations;
 
-    @OneToOne(mappedBy = "professor", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private BankDetails bankDetails;
 
     // getters and setters

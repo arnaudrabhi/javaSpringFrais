@@ -9,14 +9,21 @@ public class BankDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String titulaireCompte;
-    private String numeroCompte;
+    private String nomEnregistrement;
+    private String nomCompte;
+    private String prenomCompte;
+    private String IBAN;
     private String nomBanque;
 
+    @ManyToOne
+    @JoinColumn(name = "id_Users")
+    private Users users;
+
     @OneToOne
-    @JoinColumn(name = "professor_id")
-    private Professor professor;
+    @JoinColumn(name = "id_ExpenseDeclaration", unique = true)
+    private ExpenseDeclaration expenseDeclaration;
 
     // getters and setters
 }
+
 
