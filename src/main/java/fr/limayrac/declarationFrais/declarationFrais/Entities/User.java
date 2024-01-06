@@ -1,26 +1,52 @@
 package fr.limayrac.declarationFrais.declarationFrais.Entities;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "users")
+@SQLDelete(sql = "UPDATE customer SET deleted = true WHERE id=?")
+@Where(clause = "deleted=false")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String nom;
-    private String prenom;
-    private String role;
+    @Column(nullable = false)
+    private String civility;
+
+    private String firstName;
+
+    private String lastName;
+
+    @Column(nullable = false, unique = true)
     private String email;
-    @Column(nullable = false, length = 255)
+
+    @Column(nullable = false)
     private String password;
 
+    @Column(name = "deleted")
+    private boolean deleted = Boolean.FALSE;
 
-
-    // getters and setters
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName = "ID")},
+            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName = "ID")})
+    private List<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     private List<ExpenseDeclaration> expenseDeclarations;
@@ -30,67 +56,10 @@ public class User {
 
     // getters and setters
 
-    public Long getId() {
-        return id;
+    public void addRole(Role role) {
+        this.roles.add(role);
+
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
 
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<ExpenseDeclaration> getExpenseDeclarations() {
-        return expenseDeclarations;
-    }
-
-    public void setExpenseDeclarations(List<ExpenseDeclaration> expenseDeclarations) {
-        this.expenseDeclarations = expenseDeclarations;
-    }
-
-    public List<BankDetails> getBankDetails() {
-        return bankDetails;
-    }
-
-    public void setBankDetails(List<BankDetails> bankDetails) {
-        this.bankDetails = bankDetails;
-    }
 }
