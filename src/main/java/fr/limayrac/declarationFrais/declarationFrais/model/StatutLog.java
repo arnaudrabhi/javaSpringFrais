@@ -1,17 +1,18 @@
-package fr.limayrac.declarationFrais.declarationFrais.Entities;
+package fr.limayrac.declarationFrais.declarationFrais.model;
 
 import jakarta.persistence.*;
+import java.sql.Date;
 
 @Entity
-@Table(name = "AccommodationExpense")
-public class AccommodationExpense {
+public class StatutLog {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String accomodationType;
-    private Double montant;
+    private String oldStatut;
+    private String newStatut;
+    private Date created_at;
 
     @ManyToOne
     @JoinColumn(name = "id_ExpenseDeclaration")

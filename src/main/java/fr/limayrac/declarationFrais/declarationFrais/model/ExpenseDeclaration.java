@@ -1,4 +1,4 @@
-package fr.limayrac.declarationFrais.declarationFrais.Entities;
+package fr.limayrac.declarationFrais.declarationFrais.model;
 
 import jakarta.persistence.*;
 import java.sql.Date;

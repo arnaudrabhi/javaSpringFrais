@@ -1,8 +1,8 @@
 package fr.limayrac.declarationFrais.declarationFrais.security;
 
 
-import fr.limayrac.declarationFrais.declarationFrais.Entities.User;
-import fr.limayrac.declarationFrais.declarationFrais.Entities.Role;
+import fr.limayrac.declarationFrais.declarationFrais.model.User;
+import fr.limayrac.declarationFrais.declarationFrais.model.Role;
 import fr.limayrac.declarationFrais.declarationFrais.repository.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

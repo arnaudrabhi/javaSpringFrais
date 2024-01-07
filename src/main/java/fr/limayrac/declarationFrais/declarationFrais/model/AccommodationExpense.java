@@ -1,21 +1,17 @@
-package fr.limayrac.declarationFrais.declarationFrais.Entities;
+package fr.limayrac.declarationFrais.declarationFrais.model;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
-
 @Entity
-@Table(name = "TransportExpense")
-public class TransportExpense {
+@Table(name = "AccommodationExpense")
+public class AccommodationExpense {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String transportationType;
-    private String departureLocation;
+    private String accomodationType;
     private Double montant;
-    private Date created_at;
 
     @ManyToOne
     @JoinColumn(name = "id_ExpenseDeclaration")

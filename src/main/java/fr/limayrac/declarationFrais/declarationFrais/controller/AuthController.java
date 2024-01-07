@@ -1,7 +1,7 @@
 package fr.limayrac.declarationFrais.declarationFrais.controller;
 
 
-import fr.limayrac.declarationFrais.declarationFrais.Entities.User;
+import fr.limayrac.declarationFrais.declarationFrais.model.User;
 import fr.limayrac.declarationFrais.declarationFrais.Service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,17 +1,18 @@
-package fr.limayrac.declarationFrais.declarationFrais.Entities;
+package fr.limayrac.declarationFrais.declarationFrais.model;
 
 import jakarta.persistence.*;
-import java.sql.Date;
+
+import java.util.Date;
 
 @Entity
-public class StatutLog {
+public class MealExpense {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String oldStatut;
-    private String newStatut;
+    private Double montant;
+    private String justificatif;
     private Date created_at;
 
     @ManyToOne
@@ -20,4 +21,5 @@ public class StatutLog {
 
     // getters and setters
 }
+
 

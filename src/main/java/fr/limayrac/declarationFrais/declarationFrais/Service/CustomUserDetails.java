@@ -1,6 +1,6 @@
 package fr.limayrac.declarationFrais.declarationFrais.Service;
 
-import fr.limayrac.declarationFrais.declarationFrais.Entities.User;
+import fr.limayrac.declarationFrais.declarationFrais.model.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 

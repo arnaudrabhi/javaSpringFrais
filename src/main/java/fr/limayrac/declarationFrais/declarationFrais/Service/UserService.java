@@ -1,8 +1,8 @@
 package fr.limayrac.declarationFrais.declarationFrais.Service;
 
 
-import fr.limayrac.declarationFrais.declarationFrais.Entities.Role;
-import fr.limayrac.declarationFrais.declarationFrais.Entities.User;
+import fr.limayrac.declarationFrais.declarationFrais.model.Role;
+import fr.limayrac.declarationFrais.declarationFrais.model.User;
 import fr.limayrac.declarationFrais.declarationFrais.repository.UserRepository;
 import fr.limayrac.declarationFrais.declarationFrais.repository.RoleRepository;
 import lombok.Data;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 
