@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:insert="~{baseElements/scripts :: script}"></div>
+
+</head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container mt-2">
+
+    <h1>Liste des utilisateurs</h1>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-secondary" href="/home">Retour</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-primary" href="/user/new">Créer</a>
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Civilité</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Roles</th>
+                <th>Client (ID)</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody th:if="${!#lists.isEmpty(users)}">
+            <tr th:each="user : ${users}" >
+                <td><span th:text="${user.id}"> ID </span></td>
+                <td><span th:text="${user.civility}"> Civilité </span></td>
+                <td><span th:text="${user.lastName}"> Nom </span></td>
+                <td><span th:text="${user.firstName}"> Prénom </span></td>
+                <td><span th:text="${user.email}"> Email </span></td>
+                <td><span th:each="role : ${user.roles}" th:text="${role.name}"></span></td>
+                <td><span th:if="${user.customer}" th:text="${user.customer.id}"> Client </span></td>
+                <td>
+                    <a class="btn btn-primary" th:href="@{/user/edit/{id}(id=${user.id})}">Modifier</a>
+                    <a class="btn btn-danger" th:href="@{/user/delete/{id}(id=${user.id})}">Supprimer</a>
+                </td>
+            </tr>
+            </tbody>
+            <tbody th:if="${#lists.isEmpty(users)}">
+                <tr>
+                    <td colspan="100%">Aucun utilisateur enregistré</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
