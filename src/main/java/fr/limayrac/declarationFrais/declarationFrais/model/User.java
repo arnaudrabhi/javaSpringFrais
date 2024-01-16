@@ -8,6 +8,7 @@ import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +18,6 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "users")
-@SQLDelete(sql = "UPDATE customer SET deleted = true WHERE id=?")
 @Where(clause = "deleted=false")
 public class User {
 
@@ -40,6 +40,9 @@ public class User {
 
     @Column(name = "deleted")
     private boolean deleted = Boolean.FALSE;
+
+    private Instant created_at;
+    private Instant updated_at;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(

@@ -1,10 +1,24 @@
 package fr.limayrac.declarationFrais.declarationFrais.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
 
+import java.time.Instant;
 import java.util.Date;
 
 @Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "meal_expenses")
+@SQLRestriction("deleted=false")
 public class MealExpense {
 
     @Id
@@ -13,7 +27,8 @@ public class MealExpense {
 
     private Double montant;
     private String justificatif;
-    private Date created_at;
+    private Instant created_at;
+    private Instant updated_at;
 
     @ManyToOne
     @JoinColumn(name = "id_ExpenseDeclaration")

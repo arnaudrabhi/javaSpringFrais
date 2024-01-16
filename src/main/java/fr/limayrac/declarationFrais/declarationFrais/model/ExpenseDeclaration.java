@@ -1,21 +1,39 @@
 package fr.limayrac.declarationFrais.declarationFrais.model;
 
 import jakarta.persistence.*;
-import java.sql.Date;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
+import org.hibernate.annotations.Where;
+
+import java.io.Serializable;
+import java.time.Instant;
 import java.util.List;
 
 @Entity
-public class ExpenseDeclaration {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "expense_declaration")
+@SQLRestriction("deleted=false")
+public class ExpenseDeclaration implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Date dateDeclaration;
+    private Instant dateDeclaration;
     private String lieuFormation;
+    private String intituleFormation;
     private int statut;
-    private Date dateCreation;
-    private Date dateValidation;
+    private Instant dateCreation;
+    private Instant dateValidation;
+    private Instant created_at;
+    private Instant updated_at;
 
     @ManyToOne
     @JoinColumn(name = "id_User")
