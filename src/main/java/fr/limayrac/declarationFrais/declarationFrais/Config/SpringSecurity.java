@@ -16,6 +16,7 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
+@EnableGlobalAuthentication
 public class SpringSecurity {
 
     @Autowired
@@ -28,20 +29,13 @@ public class SpringSecurity {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((authorize) ->
+        http.authorizeHttpRequests((authorize) ->
                         authorize.requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/register").permitAll()
-                                .requestMatchers("/home").hasAnyRole("ADMIN", "CUSTOMER")
-                                .requestMatchers("/").hasAnyRole("ADMIN", "CUSTOMER")
-                                .requestMatchers("/users").hasRole("ADMIN")
-                                .requestMatchers("/account/**").hasAnyRole("ADMIN")
-                                .requestMatchers("/customer/transfert").hasAnyRole("ADMIN", "CUSTOMER")
-                                .requestMatchers("/customer/personal").hasAnyRole("ADMIN", "CUSTOMER")
-                                .requestMatchers("/customer/**").hasAnyRole("ADMIN", "CUSTOMER")
-                                .requestMatchers("/user/**").hasRole("ADMIN")
-                                .requestMatchers("/transaction/**").hasRole("ADMIN")
-
+                                .requestMatchers("/home").permitAll()
+                                .requestMatchers("/").permitAll()
+                                .requestMatchers("/users").permitAll()
+                                .requestMatchers("/user/**").permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

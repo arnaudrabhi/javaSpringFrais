@@ -53,10 +53,8 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     @Bean
     public FlowDefinitionRegistry flowRegistry() {
         return getFlowDefinitionRegistryBuilder()
-                .setBasePath("classpath:flows") //
-                .addFlowLocationPattern("/resources/WEB-INF/**/*-flow.xml")
-//                    .addFlowLocation("/resources/flows/register/Menu-flow.xml")
-                .setFlowBuilderServices(flowBuilderServices())
+                .addFlowLocation("/WEB-INF/flows/declaration-flow.xml")
+//                .setFlowBuilderServices(flowBuilderServices())
                 .build();
     }
 

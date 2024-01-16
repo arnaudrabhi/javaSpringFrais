@@ -4,59 +4,39 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
       http://www.springframework.org/schema/webflow/spring-webflow.xsd">
 
-    <!-- Step 1: Prepare Declaration -->
-    <view-state id="prepareDeclaration" view="declaration/step1">
-        <on-entry>
-            <!-- Code to execute when entering this step -->
-        </on-entry>
-        <transition on="proceed" to="declareFormationDetails"/>
+    <on-start>
+        <evaluate expression="ExpenseDeclarationService.startNewDeclaration()"
+                  result="flowScope.declaration"/>
+    </on-start>
+
+    <!-- Préparation de déclaration -->
+    <view-state id="prepareDeclaration">
+        <transition on="submit" to="detailFormationStep"/>
+
     </view-state>
 
-    <!-- Step 2: Declare Formation Details -->
-    <action-state id="declareFormationDetails">
-        <evaluate expression="declarationController.declareFormationDetails(declarationForm)" />
-        <transition to="declareTransportExpenses"/>
-    </action-state>
-
-    <!-- Step 3: Declare Transport Expenses -->
-    <action-state id="declareTransportExpenses">
-        <evaluate expression="declarationController.declareTransportExpenses(transportExpenses)" />
-        <transition to="declareAccommodationExpenses"/>
-    </action-state>
-
-    <!-- Step 4: Declare Accommodation Expenses -->
-    <action-state id="declareAccommodationExpenses">
-        <evaluate expression="declarationController.declareAccommodationExpenses(accommodationExpenses)" />
-        <transition to="declareMealExpenses"/>
-    </action-state>
-
-    <!-- Step 5: Declare Meal Expenses -->
-    <action-state id="declareMealExpenses">
-        <evaluate expression="declarationController.declareMealExpenses(mealExpenses)" />
-        <transition to="provideBankDetails"/>
-    </action-state>
-
-    <!-- Step 6: Provide Bank Details -->
-    <action-state id="provideBankDetails">
-        <evaluate expression="declarationController.provideBankDetails(bankDetails)" />
-        <transition to="showRecap"/>
-    </action-state>
-
-    <!-- Step 7: Show Recap -->
-    <view-state id="showRecap" view="declaration/recap">
-        <on-entry>
-            <!-- Code to execute when entering this step -->
-        </on-entry>
-        <transition on="submit" to="submitDeclaration"/>
+    <!-- Details de la formation -->
+    <view-state id="detailFormationStep">
+        <transition on="submit" to="AccommodationStep"/>
     </view-state>
 
-    <!-- Step 8: Submit Declaration -->
-    <action-state id="submitDeclaration">
-        <evaluate expression="declarationController.submitDeclaration()" />
-        <transition to="end"/>
-    </action-state>
+    <!-- Details des dépenses transport -->
+    <view-state id="AccommodationStep">
+        <transition on="submit" to="mealExpense"/>
+    </view-state>
 
-    <!-- End State -->
+
+
+
+    <!-- Details des dépenses liée à la restauration -->
+    <view-state id="mealExpense">
+        <transition on="submit" to="bankCoordinates"/>
+    </view-state>
+
+    <view-state id="bankCoordinates">
+        <transition on="submit" to="end"/>
+    </view-state>
+
     <end-state id="end" />
 
 </flow>

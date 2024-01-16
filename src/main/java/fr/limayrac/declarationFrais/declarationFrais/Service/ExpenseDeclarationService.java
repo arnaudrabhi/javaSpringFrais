@@ -3,8 +3,19 @@ package fr.limayrac.declarationFrais.declarationFrais.Service;
 import fr.limayrac.declarationFrais.declarationFrais.model.ExpenseDeclaration;
 import org.springframework.stereotype.Service;
 
+import java.time.Instant;
+
 @Service
 public class ExpenseDeclarationService {
+
+
+    public ExpenseDeclaration startNewDeclaration() {
+
+        ExpenseDeclaration expenseDeclaration = new ExpenseDeclaration();
+        expenseDeclaration.setDateCreation(Instant.now());
+
+        return expenseDeclaration;
+    }
 
     public void handleDetails(ExpenseDeclaration declaration) {
         // Handle details logic
