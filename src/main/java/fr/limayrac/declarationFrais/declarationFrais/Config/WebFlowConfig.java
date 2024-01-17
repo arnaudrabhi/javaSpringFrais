@@ -53,7 +53,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
     @Bean
     public FlowDefinitionRegistry flowRegistry() {
         return getFlowDefinitionRegistryBuilder()
-                .addFlowLocation("/WEB-INF/flows/declaration-flow.xml")
+                .addFlowLocation("/templates/expenseDeclaration/declaration-flow.xml")
 //                .setFlowBuilderServices(flowBuilderServices())
                 .build();
     }
