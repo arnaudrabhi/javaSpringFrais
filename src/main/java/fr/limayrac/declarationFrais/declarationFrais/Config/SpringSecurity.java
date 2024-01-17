@@ -30,12 +30,15 @@ public class SpringSecurity {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((authorize) ->
-                        authorize.requestMatchers("/register/**").permitAll()
+                        authorize
+                                .requestMatchers("/register/**").permitAll()
                                 .requestMatchers("/register").permitAll()
+                                .requestMatchers("/login").permitAll()
                                 .requestMatchers("/home").permitAll()
                                 .requestMatchers("/").permitAll()
                                 .requestMatchers("/users").permitAll()
                                 .requestMatchers("/user/**").permitAll()
+                                .anyRequest().permitAll()
                 ).formLogin(
                         form -> form
                                 .loginPage("/login")

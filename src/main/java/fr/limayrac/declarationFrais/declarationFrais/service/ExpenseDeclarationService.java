@@ -1,4 +1,4 @@
-package fr.limayrac.declarationFrais.declarationFrais.Service;
+package fr.limayrac.declarationFrais.declarationFrais.service;
 
 import fr.limayrac.declarationFrais.declarationFrais.model.ExpenseDeclaration;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,7 @@
 package fr.limayrac.declarationFrais.declarationFrais.controller;
 
 import fr.limayrac.declarationFrais.declarationFrais.model.ExpenseDeclaration;
-import fr.limayrac.declarationFrais.declarationFrais.Service.ExpenseDeclarationService;
+import fr.limayrac.declarationFrais.declarationFrais.service.ExpenseDeclarationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

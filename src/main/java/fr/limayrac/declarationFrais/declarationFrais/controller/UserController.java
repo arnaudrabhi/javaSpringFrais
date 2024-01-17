@@ -2,7 +2,7 @@ package fr.limayrac.declarationFrais.declarationFrais.controller;
 
 import fr.limayrac.declarationFrais.declarationFrais.model.Role;
 import fr.limayrac.declarationFrais.declarationFrais.model.User;
-import fr.limayrac.declarationFrais.declarationFrais.Service.UserService;
+import fr.limayrac.declarationFrais.declarationFrais.service.UserService;
 import fr.limayrac.declarationFrais.declarationFrais.repository.RoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

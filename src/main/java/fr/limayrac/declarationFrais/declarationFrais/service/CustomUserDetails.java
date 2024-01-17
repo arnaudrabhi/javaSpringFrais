@@ -1,4 +1,4 @@
-package fr.limayrac.declarationFrais.declarationFrais.Service;
+package fr.limayrac.declarationFrais.declarationFrais.service;
 
 import fr.limayrac.declarationFrais.declarationFrais.model.User;
 import org.springframework.security.core.GrantedAuthority;
