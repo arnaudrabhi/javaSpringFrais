@@ -27,7 +27,7 @@ public class UserService {
         return userRepository.findByEmail(email);
     }
 
-    public Optional<User> getUser(final Integer id) {
+    public Optional<User> getUser(final Long id) {
         return userRepository.findById(id);
     }
 
@@ -36,7 +36,7 @@ public class UserService {
     }
 
 
-    public void deleteUser(final Integer id) {
+    public void deleteUser(final Long id) {
         userRepository.deleteById(id);
     }
 

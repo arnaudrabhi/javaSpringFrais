@@ -4,6 +4,7 @@ package fr.limayrac.declarationFrais.declarationFrais.security;
 import fr.limayrac.declarationFrais.declarationFrais.model.User;
 import fr.limayrac.declarationFrais.declarationFrais.model.Role;
 import fr.limayrac.declarationFrais.declarationFrais.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,10 +19,6 @@ import java.util.stream.Collectors;
 public class CustomUserDetailsService implements UserDetailsService {
 
     private UserRepository userRepository;
-
-    public CustomUserDetailsService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {

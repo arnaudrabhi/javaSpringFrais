@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/edit/{id:[\\d]+}")
-    public String editUser(Model model, @PathVariable("id") final Integer id) {
+    public String editUser(Model model, @PathVariable("id") final Long id) {
         Optional<User> user = userService.getUser(id);
         if (user.isPresent()) {
             User finalUser = user.get();
@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/delete/{id:[\\d]+}")
-    public String deleteUserConfirmation(Model model, @PathVariable("id") final Integer id) {
+    public String deleteUserConfirmation(Model model, @PathVariable("id") final Long id) {
         Optional<User> user = userService.getUser(id);
         if (user.isEmpty()) {
             model.addAttribute("error", "L'utilisateur n'existe pas");
@@ -76,7 +76,7 @@ public class UserController {
     }
 
     @PostMapping(value = "/delete/{id:[\\d]+}")
-    public String deleteUser(@PathVariable("id") final Integer id, Model model) {
+    public String deleteUser(@PathVariable("id") final Long id, Model model) {
         userService.deleteUser(id);
         return listUser(model);
     }
