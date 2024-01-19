@@ -4,12 +4,12 @@ import fr.limayrac.declarationFrais.declarationFrais.model.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
+@Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    User findByEmail(String email);
-    @Query("SELECT u FROM users u WHERE u.email = :email")
-    public User getUserByUsername(@Param("email") String email);
-
-
+    User findByEmail(String username);
 }

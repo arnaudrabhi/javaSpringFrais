@@ -2,9 +2,16 @@ package fr.limayrac.declarationFrais.declarationFrais.controller;
 
 
 import fr.limayrac.declarationFrais.declarationFrais.model.User;
+import fr.limayrac.declarationFrais.declarationFrais.repository.RoleRepository;
+import fr.limayrac.declarationFrais.declarationFrais.repository.UserRepository;
 import fr.limayrac.declarationFrais.declarationFrais.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +26,12 @@ public class AuthController {
 
     private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 
+    @Autowired
     private UserService userService;
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     public AuthController(UserService userService) {
         this.userService = userService;
@@ -56,6 +68,15 @@ public class AuthController {
 
         userService.saveUser(userDto);
         return "redirect:/";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication) {
+        if (authentication != null) {
+            logger.debug("Logout ici");
+            new SecurityContextLogoutHandler().logout(request, response, authentication);
+        }
+        return "redirect:/login?logout";
     }
 
     @GetMapping("/users")

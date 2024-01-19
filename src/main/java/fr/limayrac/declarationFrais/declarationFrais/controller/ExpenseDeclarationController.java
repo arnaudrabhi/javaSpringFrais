@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/expenseDeclaration")
 public class ExpenseDeclarationController {
 
+    @Autowired
     private final ExpenseDeclarationService expenseDeclarationService;
 
     @Autowired
