@@ -22,7 +22,7 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "users")
 @Where(clause = "deleted=false")
-public class User implements UserDetails {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -67,42 +67,15 @@ public class User implements UserDetails {
 
     }
 
+    public boolean isEnabled() {
+        return !this.deleted;
+    }
+
     public String getFullName() {
         return firstName + " " + lastName;
     }
 
     public String getFullNameWithCivility() {
         return civility + " " + firstName + " " + lastName;
-    }
-
-
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
-    }
-
-    @Override
-    public String getUsername() {
-        return getFullName();
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
     }
 }

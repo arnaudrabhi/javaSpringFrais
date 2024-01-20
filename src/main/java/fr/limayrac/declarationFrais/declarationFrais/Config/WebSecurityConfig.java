@@ -35,13 +35,13 @@ public class WebSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers("/register/**").permitAll()
-                                .requestMatchers("/register").permitAll()
-                                .requestMatchers("/login").permitAll()
-                                .requestMatchers("/home").permitAll()
-                                .requestMatchers("/").authenticated()
-                                .requestMatchers("/users").permitAll()
-                                .requestMatchers("/user/**").permitAll()
+//                                .requestMatchers("/").authenticated()
+//                                .requestMatchers("/home").authenticated()
+//                                .requestMatchers("/register/**").permitAll()
+//                                .requestMatchers("/register").permitAll()
+//                                .requestMatchers("/login").permitAll()
+//                                .requestMatchers("/users").permitAll()
+//                                .requestMatchers("/user/**").permitAll()
                                 .anyRequest().permitAll()
                 ).formLogin(
                         form -> form
