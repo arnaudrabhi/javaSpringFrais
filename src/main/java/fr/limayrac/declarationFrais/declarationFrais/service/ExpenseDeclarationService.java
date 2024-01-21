@@ -1,24 +1,51 @@
 package fr.limayrac.declarationFrais.declarationFrais.service;
 
+import fr.limayrac.declarationFrais.declarationFrais.controller.UserController;
+import fr.limayrac.declarationFrais.declarationFrais.enums.statutDeclaration;
 import fr.limayrac.declarationFrais.declarationFrais.model.ExpenseDeclaration;
+import fr.limayrac.declarationFrais.declarationFrais.model.TransportExpense;
+import fr.limayrac.declarationFrais.declarationFrais.repository.ExpenseDeclarationRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 
-@Service
+@Service("expenseDeclarationService")
 public class ExpenseDeclarationService {
 
+    private static final Logger logger = LoggerFactory.getLogger(ExpenseDeclarationService.class);
 
+    @Autowired
+    private ExpenseDeclarationRepository expenseDeclarationRepository;
+
+    @Bean
     public ExpenseDeclaration startNewDeclaration() {
 
         ExpenseDeclaration expenseDeclaration = new ExpenseDeclaration();
         expenseDeclaration.setDateCreation(Instant.now());
+        expenseDeclaration.setCreated_at(Instant.now());
+        expenseDeclaration.setStatut(statutDeclaration.EN_ATTENTE);
+
+        logger.info("expenseDeclaration créée !");
+
+        expenseDeclarationRepository.save(expenseDeclaration);
 
         return expenseDeclaration;
     }
 
-    public void handleDetails(ExpenseDeclaration declaration) {
-        // Handle details logic
+    @Bean
+    public ExpenseDeclaration handleDetails(ExpenseDeclaration declaration) {
+        expenseDeclarationRepository.save(declaration);
+        return declaration;
+    }
+
+    public ExpenseDeclaration addTransportExpense(ExpenseDeclaration declaration) {
+        TransportExpense transportExpense = new TransportExpense();
+        declaration.addTransportExpense(transportExpense);
+        return declaration;
     }
 
     public void handleTransport(ExpenseDeclaration declaration) {

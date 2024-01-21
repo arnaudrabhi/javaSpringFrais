@@ -36,6 +36,11 @@ public class TransportExpense {
     @JoinColumn(name = "id_ExpenseDeclaration")
     private ExpenseDeclaration expenseDeclaration;
 
+    public TransportExpense() {
+        this.created_at = Instant.now();
+        this.updated_at = Instant.now();
+    }
+
     // getters and setters
 }
 
