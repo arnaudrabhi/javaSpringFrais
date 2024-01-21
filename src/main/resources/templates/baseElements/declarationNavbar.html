@@ -1,7 +1,30 @@
 <div th:fragment="declarationNavbar">
-
-
-
-
-
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container">
+            <ul class="navbar-nav">
+                <li class="nav-item" th:class="${currentStep == 'prepareDeclaration' ? 'active' : ''}">
+                    <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToPrepare'">Préparation de déclaration</a>
+                </li>
+                <li class="nav-item" th:class="${currentStep == 'detailFormationStep' ? 'active' : ''}">
+                    <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToFormation'" >Details de la Formation</a>
+                </li>
+                <li class="nav-item" th:class="${currentStep == 'detailFormationStep' ? 'active' : ''}">
+                    <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToTransport'" >Frais de transport</a>
+                </li>
+                <li class="nav-item" th:class="${currentStep == 'AccommodationStep' ? 'active' : ''}">
+                    <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToAccommodation'">Détails des dépenses liées à l'hébergement</a>
+                </li>
+                <li class="nav-item" th:class="${currentStep == 'mealExpense' ? 'active' : ''}">
+                    <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToMealExpenses'">Détails des dépenses liées à la restauration</a>
+                </li>
+                <li class="nav-item" th:class="${currentStep == 'bankCoordinates' ? 'active' : ''}">
+                    <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToBankDetails'">Coordonnées bancaires</a>
+                </li>
+                <li class="nav-item" th:class="${currentStep == 'recapitulatifDeclaration' ? 'active' : ''}">
+                    <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToRecap'">Récapitulatif</a>
+                </li>
+                <!-- Ajoutez plus d'étapes au besoin -->
+            </ul>
+        </div>
+    </nav>
 </div>

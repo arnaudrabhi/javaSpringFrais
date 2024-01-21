@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta th:insert="~{baseElements/scripts :: script}">
+    <title>Home</title>
+</head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container">
+    <div th:insert="~{baseElements/declarationNavbar :: declarationNavbar}"></div>
+    <div class="container">
+
+        <form class="form" method="post" th:action="${flowExecutionUrl}" th:object="${declaration}">
+
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="lieuFormation">Lieu de Formation:</label>
+                        <input type="text" id="lieuFormation" name="lieuFormation" th:field="*{lieuFormation}" class="form-control" required />
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="intituleFormation">Intitulé de Formation:</label>
+                        <input type="text" id="intituleFormation" name="intituleFormation" th:field="*{intituleFormation}" class="form-control" required />
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="annuler"></label>
+                        <input class="btn btn-danger" type="submit" name="_eventId_cancel" id="annuler" value="Annuler" />
+                    </div>
+                </div>
+                <div class="col">
+
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="avancer"></label>
+                        <input class="btn btn-primary" type="submit" name="_eventId_nextStep" id="avancer" value="Avancer" />
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta th:insert="~{baseElements/scripts :: script}">
+    <title>Home</title>
+</head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container">
+    <div th:insert="~{baseElements/declarationNavbar :: declarationNavbar}"></div>
+    <div class="container">
+
+        <form class="form" method="post" th:action="${flowExecutionUrl}" th:object="${declaration}">
+
+
+            <div class="form-group">
+                <label>Mode of Transport:</label>
+                <div class="form-check">
+                    <input type="radio" id="publicTransport" name="transportMode" th:field="*{transportationType}" value="true" class="form-check-input"/>
+                    <label for="publicTransport" class="form-check-label">Public Transport</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" id="personalVehicle" name="transportMode" th:field="*{transportationType}" value="false" class="form-check-input"/>
+                    <label for="personalVehicle" class="form-check-label">Personal Vehicle</label>
+                </div>
+            </div>
+
+            <!-- Radio buttons for selecting the starting point -->
+            <div class="form-group">
+                <label>Starting Point:</label>
+                <div class="form-check">
+                    <input type="radio" id="institution" name="startingPoint" th:field="*{departureLocation}" value="institution" class="form-check-input"/>
+                    <label for="institution" class="form-check-label">From Institution</label>
+                </div>
+                <div class="form-check">
+                    <input type="radio" id="home" name="startingPoint" th:field="*{departureLocation}" value="home" class="form-check-input"/>
+                    <label for="home" class="form-check-label">From Home</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label for="annuler"></label>
+                        <input class="btn btn-danger" type="submit" name="_eventId_cancel" id="annuler" value="Annuler" />
+                    </div>
+                </div>
+                <div class="col">
+
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="avancer"></label>
+                        <input class="btn btn-primary" type="submit" name="_eventId_nextStep" id="avancer" value="Avancer" />
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+</div>
+
+</body>
+</html>
