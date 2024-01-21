@@ -29,6 +29,8 @@ public class MealExpense {
     private String justificatif;
     private Instant created_at;
     private Instant updated_at;
+    @Column(name = "deleted")
+    private boolean deleted = Boolean.FALSE;
 
     @ManyToOne
     @JoinColumn(name = "id_ExpenseDeclaration")

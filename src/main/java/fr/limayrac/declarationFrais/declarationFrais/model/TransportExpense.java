@@ -29,6 +29,8 @@ public class TransportExpense {
     private Double montant;
     private Instant created_at;
     private Instant updated_at;
+    @Column(name = "deleted")
+    private boolean deleted = Boolean.FALSE;
 
     @ManyToOne
     @JoinColumn(name = "id_ExpenseDeclaration")
