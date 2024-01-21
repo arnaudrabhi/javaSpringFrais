@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow
+      http://www.springframework.org/schema/webflow/spring-webflow.xsd">
+
+    <on-start>
+        <evaluate expression="expenseDeclarationService.startNewDeclaration()"
+                  result="flowScope.declaration"/>
+    </on-start>
+
+    <!-- Préparation de déclaration 1-->
+    <view-state id="prepareDeclaration" view="flows/prepareDeclaration" >
+        <transition on="nextStep" to="detailFormationStep"/>
+
+        <!-- Menu de navigation -->
+<!--        <transition on="goToPrepare" to="prepareDeclaration"/>-->
+<!--        <transition on="goToFormation" to="detailFormationStep"/>-->
+<!--        <transition on="goToTransport" to="TransportStep"/>-->
+<!--        <transition on="goToAccommodation" to="AccommodationStep"/>-->
+<!--        <transition on="goToMealExpenses" to="mealExpense"/>-->
+<!--        <transition on="goToBankDetails" to="bankCoordinates"/>-->
+<!--        <transition on="goToRecap" to="recapitulatifDeclaration"/>-->
+
+    </view-state>
+
+    <!-- Details de la formation 2-->
+    <view-state id="detailFormationStep" view="flows/detaisFormation" model="declaration">
+
+        <transition on="nextStep" to="manageTransportExpense">
+            <evaluate expression="expenseDeclarationService.handleDetails(flowScope.declaration)" result="flowScope.declaration"/>
+        </transition>
+
+    </view-state>
+
+    <!-- Details des dépenses liées au Transport 3-->
+    <subflow-state id="manageTransportExpense" subflow="transportFlow">
+        <input name="declaration" value="declaration" />
+        <output name="declaration" value="declaration" />
+        <transition on="submit" to="AccommodationStep"/>
+    </subflow-state>
+
+
+
+    <!-- Details des dépenses d'hébergement 4-->
+    <view-state id="AccommodationStep">
+        <transition on="submit" to="mealExpense"/>
+    </view-state>
+
+
+    <!-- Details des dépenses liées à la restauration 5-->
+    <view-state id="mealExpense">
+        <transition on="submit" to="bankCoordinates"/>
+    </view-state>
+
+
+    <view-state id="bankCoordinates">
+        <transition on="submit" to="recapitulatifDeclaration"/>
+    </view-state>
+
+
+    <view-state id="recapitulatifDeclaration">
+        <transition on="submit" to="end"/>
+    </view-state>
+
+    <end-state id="end" />
+
+</flow>

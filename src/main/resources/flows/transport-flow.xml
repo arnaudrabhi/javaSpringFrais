@@ -1,0 +1,29 @@
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+    <!-- Input for the subflow -->
+    <input name="declaration" required="true" />
+
+    <!-- Start state of the subflow -->
+    <view-state id="enterTransportExpense" view="" model="transportExpense">
+
+        <on-entry>
+            <evaluate expression="expenseDeclarationService"/>
+        </on-entry>
+
+        <!-- Your form for entering transportation expense details -->
+        <!-- Use th:object attribute to bind to the transportExpense model -->
+        <transition on="submit" to="addTransportExpense" />
+        <transition on="cancel" to="cancel" />
+    </view-state>
+
+    <action-state id="addTransportExpense">
+        <evaluate expression="declaration.addTransportExpense(transportExpense)" />
+        <transition to="finish" />
+    </action-state>
+
+    <end-state id="finish" />
+
+    <end-state id="cancel" />
+</flow>

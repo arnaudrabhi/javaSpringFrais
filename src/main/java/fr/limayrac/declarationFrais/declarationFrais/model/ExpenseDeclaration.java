@@ -1,5 +1,6 @@
 package fr.limayrac.declarationFrais.declarationFrais.model;
 
+import fr.limayrac.declarationFrais.declarationFrais.enums.statutDeclaration;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,7 +30,9 @@ public class ExpenseDeclaration implements Serializable {
     private Instant dateDeclaration;
     private String lieuFormation;
     private String intituleFormation;
-    private int statut;
+
+    @Enumerated(EnumType.STRING)
+    private statutDeclaration statut;
     private Instant dateCreation;
     private Instant dateValidation;
     private Instant created_at;
@@ -53,6 +56,15 @@ public class ExpenseDeclaration implements Serializable {
     @OneToMany(mappedBy = "expenseDeclaration", cascade = CascadeType.ALL)
     private List<ExpenseLog> expenseLogs;
 
-    // autres attributs et getters and setters
+    public void addTransportExpense(TransportExpense transportExpense) {
+        transportExpenses.add(transportExpense);
+        transportExpense.setExpenseDeclaration(this);
+    }
+
+    public void addMealExpense(MealExpense mealExpense) {
+        mealExpenses.add(mealExpense);
+        mealExpense.setExpenseDeclaration(this);
+    }
+
 }
 

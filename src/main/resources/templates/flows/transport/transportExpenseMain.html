@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta th:insert="~{baseElements/scripts :: script}">
+    <title>Transport Expenses</title>
+</head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container">
+    <div th:insert="~{baseElements/declarationNavbar :: declarationNavbar}"></div>
+    <div class="container">
+    <h2>Transport Expenses</h2>
+
+    <!-- Display a message if no transport expenses are available -->
+    <div th:if="${#lists.isEmpty(expenseDeclaration.transportExpenses)}">
+        <p>No transport expenses available.</p>
+    </div>
+
+    <!-- Display the list of transport expenses -->
+    <div th:if="${not #lists.isEmpty(expenseDeclaration.transportExpenses)}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Expense Type</th>
+                <th>Details</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Iterate over the transport expenses -->
+            <tr th:each="transportExpense : ${expenseDeclaration.transportExpenses}">
+                <td th:text="${transportExpense.expenseType}"></td>
+                <td>
+                    <!-- Display details of the transport expense -->
+                    <span th:text="${transportExpense.details}"></span>
+                </td>
+                <td>
+                    <!-- Add a button to delete the transport expense -->
+                    <form th:action="@{/deleteTransportExpense}" method="post">
+                        <input type="hidden" name="transportExpenseId" th:value="${transportExpense.id}" />
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Buttons to navigate to different parts of the subflow -->
+    <form th:action="${flowExecutionUrl}" method="post">
+        <input type="hidden" name="_eventId_addTransportExpense" />
+        <button type="submit" class="btn btn-primary">Add Transport Expense</button>
+    </form>
+
+    <form th:action="${flowExecutionUrl}" method="post">
+        <input type="hidden" name="_eventId_submitTransportExpenses" />
+        <button type="submit" class="btn btn-success">Submit Transport Expenses</button>
+    </form>
+
+    <form th:action="${flowExecutionUrl}" method="post">
+        <input type="hidden" name="_eventId_cancel" />
+        <button type="submit" class="btn btn-danger">Cancel</button>
+    </form>
+    </div>
+</div>
+</body>
+</html>
