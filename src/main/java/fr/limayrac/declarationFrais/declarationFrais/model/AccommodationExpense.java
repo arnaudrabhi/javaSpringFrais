@@ -9,6 +9,7 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.Where;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 @Entity
@@ -18,7 +19,7 @@ import java.time.Instant;
 @AllArgsConstructor
 @Table(name = "accomodation_expense")
 @SQLRestriction("deleted=false")
-public class AccommodationExpense {
+public class AccommodationExpense implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -27,20 +27,34 @@
     <!-- Details de la formation 2-->
     <view-state id="detailFormationStep" view="flows/detaisFormation" model="declaration">
 
-        <transition on="nextStep" to="manageTransportExpense">
-            <evaluate expression="expenseDeclarationService.handleDetails(flowScope.declaration)" result="flowScope.declaration"/>
+        <transition on="nextStep" to="TransportStep">
+            <evaluate expression="expenseDeclarationService.saveDeclaration(flowScope.declaration)" result="flowScope.declaration"/>
         </transition>
 
     </view-state>
 
     <!-- Details des dépenses liées au Transport 3-->
-    <subflow-state id="manageTransportExpense" subflow="transportFlow">
-        <input name="declaration" value="declaration" />
-        <output name="declaration" value="declaration" />
-        <transition on="submit" to="AccommodationStep"/>
+    <view-state id="TransportStep" view="flows/transport/transportExpenseMain">
+        <transition on="addTransportExpense" to="addTransportExpense"/>
+        <transition on="editTransportExpense" to="editTransportExpense">
+            <set name="requestScope.transportExpenseId" value="requestParameters['transportExpenseId']"/>
+        </transition>
+        <transition on="submit" to="TransportStep"/>
+    </view-state>
+
+    <subflow-state id="addTransportExpense" subflow="addTransportFlow">
+        <input name="declaration" value="flowScope.declaration" />
+        <output name="declaration" value="flowScope.declaration" />
+        <transition on="finish" to="TransportStep"/>
     </subflow-state>
 
+    <subflow-state id="editTransportExpense" subflow="editTransportFlow">
+        <input name="declaration" value="flowScope.declaration" />
+        <input name="transportExpenseId" value="requestScope.transportExpenseId" />
 
+        <output name="declaration" value="flowScope.declaration" />
+
+    </subflow-state>
 
     <!-- Details des dépenses d'hébergement 4-->
     <view-state id="AccommodationStep">

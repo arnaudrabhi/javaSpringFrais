@@ -9,23 +9,23 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import org.hibernate.annotations.Where;
 
+import java.io.Serializable;
 import java.time.Instant;
 
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @SQLRestriction("deleted=false")
 @Table(name = "transport_expenses")
-public class TransportExpense {
+public class TransportExpense implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String transportationType;
-    private String departureLocation;
+    private String typeTransport;
+    private String lieuDepart;
     private Double montant;
     private Instant created_at;
     private Instant updated_at;

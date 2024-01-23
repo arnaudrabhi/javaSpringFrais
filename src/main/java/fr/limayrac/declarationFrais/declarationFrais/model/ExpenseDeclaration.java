@@ -12,6 +12,7 @@ import org.hibernate.annotations.Where;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -57,14 +58,37 @@ public class ExpenseDeclaration implements Serializable {
     private List<ExpenseLog> expenseLogs;
 
     public void addTransportExpense(TransportExpense transportExpense) {
+        if (this.transportExpenses == null) {
+            this.setTransportExpenses(new ArrayList<>());
+        }
         transportExpenses.add(transportExpense);
         transportExpense.setExpenseDeclaration(this);
     }
 
     public void addMealExpense(MealExpense mealExpense) {
+        if (this.mealExpenses == null) {
+            this.setMealExpenses(new ArrayList<>());
+        }
         mealExpenses.add(mealExpense);
         mealExpense.setExpenseDeclaration(this);
     }
+
+    public TransportExpense getTransportExpenseById(Long id) {
+
+        if (this.transportExpenses == null) {
+            return null;
+        }
+
+        for (TransportExpense transportExpense : this.transportExpenses) {
+            if (transportExpense.getId().equals(id)) {
+                return transportExpense;
+            }
+        }
+
+        return null;
+    }
+
+
 
 }
 
