@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta th:insert="~{baseElements/scripts :: script}">
+  <title>Liste des BankDetails</title>
+</head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container mt-5">
+  <h2>Liste des IBAN enregistrés</h2>
+  <table class="table">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Nom d'enregistrement</th>
+      <th>Nom du compte</th>
+      <!-- Ajoutez d'autres colonnes selon vos besoins -->
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="bankDetails : ${bankDetailsList}">
+      <td th:text="${bankDetails.id}"></td>
+      <td th:text="${bankDetails.nomEnregistrement}"></td>
+      <td th:text="${bankDetails.nomCompte}"></td>
+      <!-- Ajoutez d'autres colonnes selon vos besoins -->
+      <td>
+        <a th:href="@{/bankDetails/edit/{id}(id=${bankDetails.id})}" class="btn btn-warning btn-sm">Éditer</a>
+        <a th:href="@{/bankDetails/delete/{id}(id=${bankDetails.id})}" class="btn btn-danger btn-sm">Supprimer</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <a th:href="@{/bankDetails/add}" class="btn btn-primary">Ajouter un BankDetails</a>
+</div>
+
+</body>
+</html>

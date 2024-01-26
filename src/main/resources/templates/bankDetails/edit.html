@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Éditer un BankDetails</title>
+  <meta th:insert="~{baseElements/scripts :: script}">
+</head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container mt-5">
+  <h2>Éditer un BankDetails</h2>
+  <form th:action="@{/bankDetails/edit/{id}(id=${bankDetails.id})}" th:object="${bankDetails}" method="post">
+
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="nomEnregistrement">Nom d'enregistrement</label>
+          <input type="text" class="form-control" id="nomEnregistrement" th:field="*{nomEnregistrement}" required>
+        </div>
+      </div>
+
+      <div class="col">
+        <div class="form-group">
+          <label for="nomBanque">Nom de la banque</label>
+          <input type="text" class="form-control" id="nomBanque" th:field="*{nomBanque}" required>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="form-group">
+          <label for="nomCompte">Nom du compte</label>
+          <input type="text" class="form-control" id="nomCompte" th:field="*{nomCompte}" required>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-group">
+          <label for="prenomCompte">Prénom du compte</label>
+          <input type="text" class="form-control" id="prenomCompte" th:field="*{prenomCompte}" required>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="form-group">
+      <label for="iban">IBAN</label>
+      <input type="text" class="form-control" id="iban" th:field="*{IBAN}" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ajouter</button>
+    <a th:href="@{/bankDetails/list}" class="btn btn-secondary">Annuler</a>
+  </form>
+</div>
+
+</body>
+</html>

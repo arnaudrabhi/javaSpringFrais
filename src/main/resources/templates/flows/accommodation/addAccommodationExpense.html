@@ -1,0 +1,62 @@
+ <!DOCTYPE html>
+    <html lang="fr" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta th:insert="~{baseElements/scripts :: script}">
+        <title>Déclaration de frais - Hébergement</title>
+    </head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container">
+    <div th:insert="~{baseElements/declarationNavbar :: declarationNavbar}"></div>
+    <div class="container">
+        <h1>Déclaration de frais - Hébergement</h1>
+
+        <form class="form" method="post" th:action="${flowExecutionUrl}" th:object="${accommodationExpense}">
+
+            <div class="row">
+                <div class="form-check">
+                    <label for="accommodationOption">Choisissez l'option d'hébergement :</label>
+                    <select id="accommodationOption" name="accommodationOption" th:field="*{accomodationType}">
+                        <option value="ceDerogation">Dérogation de mon CE</option>
+                        <option value="freeAccommodation">Hébergement Gratuit</option>
+                        <option value="paidAccommodation">Hébergement Payant</option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="row">
+
+
+            </div>
+
+            <hr>
+
+
+            <div id="montantDetails" style="display: none;">
+                <div class="form-check">
+                    <label for="montant">Montant</label>
+                    <input type="number" id="montant" class="form-control" th:field="*{montant}">
+                </div>
+            </div>
+
+            <hr>
+
+            <button type="submit">Soumettre la déclaration</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Ajoutez du JavaScript pour afficher/masquer les champs en fonction de l'option sélectionnée
+    const montantDiv = document.getElementById('montantDetails');
+
+
+    accommodationOption.addEventListener('change', function () {
+        montantDiv.style.display = (accommodationOption.value === 'paidAccommodation') ? 'block' : 'none';
+    });
+</script>
+
+</body>
+</html>

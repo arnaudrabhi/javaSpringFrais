@@ -46,16 +46,46 @@ public class ExpenseDeclaration implements Serializable {
     private User user;
 
     @OneToMany(mappedBy = "expenseDeclaration", cascade = CascadeType.ALL)
-    private List<TransportExpense> transportExpenses;
+    private List<TransportExpense> transportExpenses = new ArrayList<>();
 
     @OneToMany(mappedBy = "expenseDeclaration", cascade = CascadeType.ALL)
-    private List<AccommodationExpense> accommodationExpenses;
+    private List<AccommodationExpense> accommodationExpenses = new ArrayList<>();
 
     @OneToMany(mappedBy = "expenseDeclaration", cascade = CascadeType.ALL)
-    private List<MealExpense> mealExpenses;
+    private List<MealExpense> mealExpenses = new ArrayList<>();
 
     @OneToMany(mappedBy = "expenseDeclaration", cascade = CascadeType.ALL)
     private List<ExpenseLog> expenseLogs;
+
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder("ExpenseDeclaration{");
+
+        stringBuilder.append("id=").append(id);
+        stringBuilder.append(", dateDeclaration=").append(dateDeclaration);
+        stringBuilder.append(", lieuFormation='").append(lieuFormation).append('\'');
+        stringBuilder.append(", intituleFormation='").append(intituleFormation).append('\'');
+        stringBuilder.append(", statut=").append(statut);
+        stringBuilder.append(", dateCreation=").append(dateCreation);
+        stringBuilder.append(", dateValidation=").append(dateValidation);
+        stringBuilder.append(", created_at=").append(created_at);
+        stringBuilder.append(", updated_at=").append(updated_at);
+        stringBuilder.append(", deleted=").append(deleted);
+
+        if (user != null) {
+            stringBuilder.append(", user=").append(user.getId()); // Assuming User class has an 'id' field
+        } else {
+            stringBuilder.append(", user=null");
+        }
+
+        stringBuilder.append(", transportExpenses=").append(transportExpenses);
+        stringBuilder.append(", accommodationExpenses=").append(accommodationExpenses);
+        stringBuilder.append(", mealExpenses=").append(mealExpenses);
+        stringBuilder.append(", expenseLogs=").append(expenseLogs);
+
+        stringBuilder.append('}');
+
+        return stringBuilder.toString();
+    }
 
     public void addTransportExpense(TransportExpense transportExpense) {
         if (this.transportExpenses == null) {
@@ -71,6 +101,25 @@ public class ExpenseDeclaration implements Serializable {
         }
         mealExpenses.add(mealExpense);
         mealExpense.setExpenseDeclaration(this);
+    }
+
+    public void addAccommodationExpense(AccommodationExpense accommodationExpense) {
+        if (this.accommodationExpenses == null) {
+            this.setAccommodationExpenses(new ArrayList<>());
+        }
+        // Un seul accommodationExpense est enregistrable pour une déclaration
+        if (!this.accommodationExpenses.isEmpty()) {
+            return;
+        }
+        accommodationExpenses.add(accommodationExpense);
+        accommodationExpense.setExpenseDeclaration(this);
+    }
+
+    public AccommodationExpense getAccommodationExpense() {
+        if (this.accommodationExpenses != null && this.accommodationExpenses.size() > 0) {
+            return this.accommodationExpenses.get(0);
+        }
+        return null;
     }
 
     public TransportExpense getTransportExpenseById(Long id) {

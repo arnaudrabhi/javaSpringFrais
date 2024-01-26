@@ -15,7 +15,6 @@ import java.time.Instant;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "accomodation_expense")
 @SQLRestriction("deleted=false")
@@ -35,6 +34,11 @@ public class AccommodationExpense implements Serializable {
     @ManyToOne
     @JoinColumn(name = "id_ExpenseDeclaration")
     private ExpenseDeclaration expenseDeclaration;
+
+    public AccommodationExpense() {
+        this.created_at = Instant.now();
+        this.updated_at = Instant.now();
+    }
 
     // getters and setters
 }
