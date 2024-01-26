@@ -2,6 +2,7 @@ package fr.limayrac.declarationFrais.declarationFrais.service;
 
 import fr.limayrac.declarationFrais.declarationFrais.controller.UserController;
 import fr.limayrac.declarationFrais.declarationFrais.enums.statutDeclaration;
+import fr.limayrac.declarationFrais.declarationFrais.model.AccommodationExpense;
 import fr.limayrac.declarationFrais.declarationFrais.model.ExpenseDeclaration;
 import fr.limayrac.declarationFrais.declarationFrais.model.TransportExpense;
 import fr.limayrac.declarationFrais.declarationFrais.repository.ExpenseDeclarationRepository;
@@ -21,7 +22,6 @@ public class ExpenseDeclarationService {
     @Autowired
     private ExpenseDeclarationRepository expenseDeclarationRepository;
 
-    @Bean
     public ExpenseDeclaration startNewDeclaration() {
 
         ExpenseDeclaration expenseDeclaration = new ExpenseDeclaration();
@@ -36,17 +36,23 @@ public class ExpenseDeclarationService {
         return expenseDeclaration;
     }
 
-    @Bean
-    public ExpenseDeclaration handleDetails(ExpenseDeclaration declaration) {
+    public ExpenseDeclaration saveDeclaration(ExpenseDeclaration declaration) {
         expenseDeclarationRepository.save(declaration);
         return declaration;
     }
 
-    public ExpenseDeclaration addTransportExpense(ExpenseDeclaration declaration) {
-        TransportExpense transportExpense = new TransportExpense();
+
+    public void addTransportExpense(ExpenseDeclaration declaration, TransportExpense transportExpense) {
         declaration.addTransportExpense(transportExpense);
-        return declaration;
     }
+
+    public void addAccommodationExpense(ExpenseDeclaration declaration) {
+        declaration.addAccommodationExpense(new AccommodationExpense());
+    }
+
+
+
+
 
     public void handleTransport(ExpenseDeclaration declaration) {
         // Handle transport logic

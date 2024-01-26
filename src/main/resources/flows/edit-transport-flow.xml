@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
+
+    <!-- Input variable to hold the existing transportExpense -->
+    <input name="transportExpenseId" required="true"/>
+    <input name="declaration" value="flowScope.declaration"/>
+
+    <var name="existingTransportExpense" class="fr.limayrac.declarationFrais.declarationFrais.model.TransportExpense"/>
+
+    <!-- Start state to load the existing transportExpense for editing -->
+    <view-state id="editTransportExpense" model="existingTransportExpense">
+        <on-entry>
+            <evaluate expression="declaration.getTransportExpenseById(transportExpenseId)" result="flowScope.existingTransportExpense"/>
+        </on-entry>
+        <transition on="submit" to="processEditTransportExpense"/>
+        <transition on="cancel" to="finish"/>
+    </view-state>
+
+    <!-- Action state to process the submitted form for editing transportExpense -->
+    <action-state id="processEditTransportExpense">
+        <evaluate expression="transportExpenseService.editTransportExpense(existingTransportExpense)"/>
+        <transition to="finish"/>
+    </action-state>
+
+    <!-- End state to finish the subflow -->
+    <end-state id="finish"/>
+
+</flow>

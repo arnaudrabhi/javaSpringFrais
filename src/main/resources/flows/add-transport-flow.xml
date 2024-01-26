@@ -14,7 +14,7 @@
 
     <!-- Action state to process the submitted form for adding transportExpense -->
     <action-state id="processAddTransportExpense">
-        <evaluate expression="expenseDeclarationService.addTransportExpense(declaration, newTransportExpense)" result="declaration" />
+        <evaluate expression="expenseDeclarationService.addTransportExpense(declaration, newTransportExpense)"/>
         <transition to="finish"/>
     </action-state>
 

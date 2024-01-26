@@ -11,33 +11,49 @@
     <div th:insert="~{baseElements/declarationNavbar :: declarationNavbar}"></div>
     <div class="container">
 
-        <form class="form" method="post" th:action="${flowExecutionUrl}" th:object="${declaration}">
+        <form class="form" method="post" th:action="${flowExecutionUrl}" th:object="${newTransportExpense}">
 
-
-            <div class="form-group">
-                <label>Mode of Transport:</label>
-                <div class="form-check">
-                    <input type="radio" id="publicTransport" name="transportMode" th:field="*{transportationType}" value="true" class="form-check-input"/>
-                    <label for="publicTransport" class="form-check-label">Public Transport</label>
+            <div class="row">
+                <div class="col">
+                    <div class="form-group">
+                        <label>Votre mode de transport</label>
+                        <div class="form-check">
+                            <label for="transportPublic" class="form-check-label">Transports en commum (Bus, Train...)</label>
+                            <input type="radio" id="transportPublic" name="transportMode" th:field="*{typeTransport}" value="Transport en commum" class="form-check-input"/>
+                        </div>
+                        <div class="form-check">
+                            <label for="vehiculePersonnel" class="form-check-label">J'ai utilisé mon véhicule</label>
+                            <input type="radio" id="vehiculePersonnel" name="transportMode" th:field="*{typeTransport}" value="Véhicule personnel" class="form-check-input"/>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-check">
-                    <input type="radio" id="personalVehicle" name="transportMode" th:field="*{transportationType}" value="false" class="form-check-input"/>
-                    <label for="personalVehicle" class="form-check-label">Personal Vehicle</label>
+
+                <div class="col">
+                    <!-- Radio buttons for selecting the starting point -->
+                    <div class="form-group">
+
+                        <label>Votre lieu de départ</label>
+                        <div class="form-check">
+                            <label for="domicile" class="form-check-label">Votre domicile</label>
+                            <input type="radio" id="domicile" name="startingPoint" th:field="*{lieuDepart}" value="Domicile" class="form-check-input"/>
+                        </div>
+                        <div class="form-check">
+                            <label for="etablissementScolaire" class="form-check-label">Votre établissement scolaire</label>
+                            <input type="radio" id="etablissementScolaire" name="startingPoint" th:field="*{lieuDepart}" value="Établissement" class="form-check-input"/>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <!-- Radio buttons for selecting the starting point -->
-            <div class="form-group">
-                <label>Starting Point:</label>
+            <div class="row">
                 <div class="form-check">
-                    <input type="radio" id="institution" name="startingPoint" th:field="*{departureLocation}" value="institution" class="form-check-input"/>
-                    <label for="institution" class="form-check-label">From Institution</label>
-                </div>
-                <div class="form-check">
-                    <input type="radio" id="home" name="startingPoint" th:field="*{departureLocation}" value="home" class="form-check-input"/>
-                    <label for="home" class="form-check-label">From Home</label>
+                    <label for="montant" class="form-label">Montant</label>
+                    <input type="number" id="montant" name="startingPoint" th:field="*{montant}" value="home" aria-describedby="montantHelper" class="form-control"/>
+                    <small id="montantHelper" class="form-text text-muted">Un montant maximun est autorisé.</small>
+
                 </div>
             </div>
+
 
             <div class="row">
                 <div class="col">
@@ -52,7 +68,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label for="avancer"></label>
-                        <input class="btn btn-primary" type="submit" name="_eventId_nextStep" id="avancer" value="Avancer" />
+                        <input class="btn btn-primary" type="submit" name="_eventId_submit" id="avancer" value="Avancer" />
                     </div>
                 </div>
             </div>
