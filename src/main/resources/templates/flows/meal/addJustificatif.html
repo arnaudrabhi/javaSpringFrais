@@ -1,0 +1,52 @@
+ <!DOCTYPE html>
+    <html lang="fr" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta th:insert="~{baseElements/scripts :: script}">
+        <title>Déclaration de frais - Hébergement</title>
+    </head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container">
+    <div th:insert="~{baseElements/declarationNavbar :: declarationNavbar}"></div>
+    <div class="container">
+        <h1>Déclaration de frais - Restauration</h1>
+
+        <form class="form" method="post" th:action="${flowExecutionUrl}" th:object="${fileUploadHandler}" enctype="multipart/form-data">
+
+
+            <div class="row">
+
+                <div class="form-check">
+                    <label for="file">Choisissez un fichier :</label>
+                    <input type="file" id="file" name="file" accept=".pdf, .doc, .docx"/>
+                </div>
+
+            </div>
+
+            <hr>
+
+            <hr>
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="avancer"></label>
+                    <input class="btn btn-primary" type="submit" name="_eventId_submit" id="avancer" value="Ajouter le justificatif" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Ajoutez du JavaScript pour afficher/masquer les champs en fonction de l'option sélectionnée
+    const montantDiv = document.getElementById('montantDetails');
+
+
+    accommodationOption.addEventListener('change', function () {
+        montantDiv.style.display = (accommodationOption.value === 'paidAccommodation') ? 'block' : 'none';
+    });
+</script>
+
+</body>
+</html>

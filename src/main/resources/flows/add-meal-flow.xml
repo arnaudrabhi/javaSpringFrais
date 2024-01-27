@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
+
+    <!-- Input variable to hold the new mealExpense -->
+    <var name="newMealExpense" class="fr.limayrac.declarationFrais.declarationFrais.model.MealExpense"/>
+    <input name="declaration" value="flowScope.declaration"/>
+    <!-- Start state to initialize the form for adding mealExpense -->
+    <view-state id="addMealExpense" view="flows/meal/addMealExpense" model="newMealExpense">
+
+        <transition on="submit" to="addJustificatif"/>
+        <transition on="cancel" to="finish"/>
+    </view-state>
+
+    <view-state id="addJustificatif" view="flows/meal/addJustificatif" model="fileUploadHandler">
+
+        <transition on="submit" to="processAddMealExpense">
+            <evaluate expression="fileUploadHandler.processFile(newMealExpense)"/>
+        </transition>
+        <transition on="cancel" to="finish"/>
+    </view-state>
+
+    <!-- Action state to process the submitted form for adding mealExpense -->
+    <action-state id="processAddMealExpense">
+        <evaluate expression="expenseDeclarationService.addMealExpense(declaration, newMealExpense)"/>
+        <transition to="finish"/>
+    </action-state>
+
+    <!-- End state to finish the subflow -->
+    <end-state id="finish"/>
+
+
+    <output name="declaration" value="flowScope.declaration" />
+
+</flow>

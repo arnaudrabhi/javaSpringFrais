@@ -28,7 +28,7 @@
     <view-state id="detailFormationStep" view="flows/detaisFormation" model="declaration">
 
         <transition on="nextStep" to="TransportStep">
-            <evaluate expression="expenseDeclarationService.saveDeclaration(flowScope.declaration)" result="flowScope.declaration"/>
+<!--            <evaluate expression="expenseDeclarationService.saveDeclaration(flowScope.declaration)" result="flowScope.declaration"/>-->
         </transition>
 
     </view-state>
@@ -66,11 +66,23 @@
         <transition on="submit" to="mealExpense"/>
     </view-state>
 
+    <view-state id="mealExpense" view="flows/meal/mealExpenseMain">
+        <transition on="addMealExpense" to="addMealExpense"/>
 
-    <!-- Details des dépenses liées à la restauration 5-->
-    <view-state id="mealExpense">
         <transition on="submit" to="bankCoordinates"/>
     </view-state>
+
+
+    <subflow-state id="addMealExpense" subflow="addMealFlow">
+        <input name="declaration" value="flowScope.declaration" />
+
+        <output name="declaration" value="flowScope.declaration" />
+        <transition on="finish" to="mealExpense"/>
+
+    </subflow-state>
+
+    <!-- Details des dépenses liées à la restauration 5-->
+
 
 
     <view-state id="bankCoordinates">

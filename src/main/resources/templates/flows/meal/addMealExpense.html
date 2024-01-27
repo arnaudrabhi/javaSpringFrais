@@ -1,0 +1,51 @@
+ <!DOCTYPE html>
+    <html lang="fr" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta th:insert="~{baseElements/scripts :: script}">
+        <title>Déclaration de frais - Hébergement</title>
+    </head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container">
+    <div th:insert="~{baseElements/declarationNavbar :: declarationNavbar}"></div>
+    <div class="container">
+        <h1>Déclaration de frais - Restauration</h1>
+
+
+        <div class="row">
+            <div class="form-check">
+                <label for="accommodationOption">Avez-vous des frais de restauration ?</label>
+                <select id="accommodationOption" name="accommodationOption">
+                    <option value="ceDerogation">Aucun frais de restauration</option>
+                    <option value="freeAccommodation">Hébergement Gratuit</option>
+                </select>
+            </div>
+        </div>
+
+        <form class="form" method="post" th:action="${flowExecutionUrl}" th:object="${newMealExpense}">
+
+            <hr>
+
+
+            <div id="montantDetails">
+                <div class="form-check">
+                    <label for="montant">Montant</label>
+                    <input type="number" id="montant" class="form-control" th:field="*{montant}">
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="col">
+                <div class="form-group">
+                    <label for="avancer"></label>
+                    <input class="btn btn-primary" type="submit" name="_eventId_submit" id="avancer" value="Soumettre la déclaration" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

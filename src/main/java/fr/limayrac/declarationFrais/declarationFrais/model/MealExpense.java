@@ -27,7 +27,7 @@ public class MealExpense implements Serializable {
     private Long id;
 
     private Double montant;
-    private String justificatif;
+    private transient JustificatifFile justificatif;
     private Instant created_at;
     private Instant updated_at;
     @Column(name = "deleted")
@@ -39,5 +39,3 @@ public class MealExpense implements Serializable {
 
     // getters and setters
 }
-
-
