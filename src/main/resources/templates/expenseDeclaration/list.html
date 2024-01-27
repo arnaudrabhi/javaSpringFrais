@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:insert="~{baseElements/scripts :: script}"></div>
+
+</head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container mt-2">
+
+    <h1>Mes Déclarations</h1>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-secondary" href="/">Retour</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-primary" href="/user/new">Créer</a>
+        </div>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Date Declaration</th>
+                <th>Lieu Formation</th>
+                <th>Intitule Formation</th>
+                <th>Statut</th>
+                <th>Date Creation</th>
+                <th>Date Validation</th>
+                <th>User</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody th:if="${!#lists.isEmpty(expenseDeclarations)}">
+            <!-- Iterate over the list of expense declarations -->
+            <tr th:each="declaration : ${expenseDeclarations}">
+                <td th:text="${declaration.id}"></td>
+                <td th:text="${#dates.format(declaration.dateDeclaration, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${declaration.lieuFormation}"></td>
+                <td th:text="${declaration.intituleFormation}"></td>
+                <td th:text="${declaration.statut}"></td>
+                <td th:text="${#dates.format(declaration.dateCreation, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${#dates.format(declaration.dateValidation, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${declaration.user != null ? declaration.user.getFullName() : 'N/A'}"></td>
+                <td>
+                    <!-- Add links/buttons for actions (view, edit, delete, etc.) -->
+                    <a th:href="@{/expense-declarations/details/{id}(id=${declaration.id})}">View</a>
+                    <a th:href="@{/expense-declarations/edit/{id}(id=${declaration.id})}">Edit</a>
+                    <!-- Add more actions as needed -->
+                </td>
+            </tr>
+            </tbody>
+            <tbody th:if="${#lists.isEmpty(expenseDeclarations)}">
+            <tr>
+                <td colspan="100%">Aucune déclaration enregistrée.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
