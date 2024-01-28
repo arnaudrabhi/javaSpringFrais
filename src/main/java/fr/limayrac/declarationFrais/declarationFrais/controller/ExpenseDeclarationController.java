@@ -41,7 +41,7 @@ public class ExpenseDeclarationController {
         return "expenseDeclaration/list"; // This assumes you have a Thymeleaf template named "list.html"
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/details/{id:[\\d]+}")
     public String showExpenseDeclarationDetails(@PathVariable Long id, Model model) {
         // Fetch the expense declaration by ID
         Optional<ExpenseDeclaration> expenseDeclaration = expenseDeclarationRepository.findById(id);

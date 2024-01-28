@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <div th:insert="~{baseElements/scripts :: script}"></div>
+
+</head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container mt-2">
+
+    <h2>Détails de la Déclaration</h2>
+
+    <div th:if="${declaration != null}">
+        <p><strong>ID:</strong> <span th:text="${declaration.id}"></span></p>
+        <p><strong>Date de Déclaration:</strong> <span th:text="${declaration.dateDeclaration}"></span></p>
+        <p><strong>Lieu de Formation:</strong> <span th:text="${declaration.lieuFormation}"></span></p>
+        <p><strong>Intitulé de Formation:</strong> <span th:text="${declaration.intituleFormation}"></span></p>
+        <p><strong>Statut:</strong> <span th:text="${declaration.statut}"></span></p>
+
+        <!-- Afficher les détails de l'utilisateur -->
+        <p><strong>Utilisateur:</strong> <span th:text="${declaration.user != null ? declaration.user.nom : 'Non défini'}"></span></p>
+
+        <!-- Afficher les détails des frais de transport -->
+        <h3>Frais de Transport</h3>
+        <div th:each="transport : ${declaration.transportExpenses}">
+            <p>Type de Transport: <span th:text="${transport.typeTransport}"></span></p>
+            <p>Lieu de Départ: <span th:text="${transport.lieuDepart}"></span></p>
+            <p>Montant: <span th:text="${transport.montant}"></span></p>
+            <!-- Ajouter des liens vers les fichiers de justificatif -->
+            <a th:if="${transport.justificatif != null}" th:href="@{'/downloadFile/' + ${transport.justificatif.id.toString()}}">Télécharger le Justificatif</a>
+        </div>
+
+        <!-- Ajouter des sections similaires pour les frais d'hébergement et de repas -->
+
+        <!-- Afficher les détails des frais d'hébergement -->
+        <h3>Frais d'Hébergement</h3>
+        <div th:each="accommodation : ${declaration.accommodationExpenses}">
+            <p>Type d'Hébergement: <span th:text="${accommodation.accomodationType}"></span></p>
+            <p>Montant: <span th:text="${accommodation.montant}"></span></p>
+            <!-- Ajouter des liens vers les fichiers de justificatif -->
+            <a th:if="${accommodation.justificatif != null}" th:href="@{'/downloadFile/' + ${accommodation.justificatif.id.toString()}}">Télécharger le Justificatif</a>
+        </div>
+
+        <!-- Afficher les détails des frais de repas -->
+        <h3>Frais de Repas</h3>
+        <div th:each="meal : ${declaration.mealExpenses}">
+            <p>Montant: <span th:text="${meal.montant}"></span></p>
+            <!-- Ajouter des liens vers les fichiers de justificatif -->
+            <a th:if="${meal.justificatif != null}" th:href="@{'/downloadFile/' + ${meal.justificatif.id.toString()}}">Télécharger le Justificatif</a>
+        </div>
+
+        <!-- Ajouter des liens vers les fichiers de justificatif pour la déclaration elle-même -->
+        <h3>Justificatif de la Déclaration</h3>
+        <a th:if="${declaration.justificatif != null}" th:href="@{'/downloadFile/' + ${declaration.justificatif.id.toString()}}">Télécharger le Justificatif</a>
+
+    </div>
+</div>
+</body>
+</html>

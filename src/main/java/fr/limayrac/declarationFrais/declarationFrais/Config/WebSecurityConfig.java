@@ -37,12 +37,10 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/declaration/mes-declarations").authenticated()
-//                                .requestMatchers("/home").authenticated()
-//                                .requestMatchers("/register/**").permitAll()
-//                                .requestMatchers("/register").permitAll()
-//                                .requestMatchers("/login").permitAll()
-//                                .requestMatchers("/users").permitAll()
-//                                .requestMatchers("/user/**").permitAll()
+                                .requestMatchers("/declarationFlow").authenticated()
+                                .requestMatchers("/bankDetails/list").authenticated()
+                                .requestMatchers("/user/list").hasRole("ADMIN")
+                                .requestMatchers("/bankDetails/list").authenticated()
                                 .anyRequest().permitAll()
                 ).formLogin(
                         form -> form

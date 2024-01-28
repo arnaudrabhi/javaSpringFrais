@@ -44,7 +44,7 @@ public class UserService {
         // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(user.getPassword()));
 
-        Role role = roleRepository.findByName("ROLE_ADMIN");
+        Role role = roleRepository.findByName("ADMIN");
         if (role == null) {
             role = checkRoleExist();
         }
@@ -54,7 +54,7 @@ public class UserService {
 
     private Role checkRoleExist() {
         Role role = new Role();
-        role.setName("ROLE_ADMIN");
+        role.setName("ADMIN");
         return roleRepository.save(role);
     }
 }

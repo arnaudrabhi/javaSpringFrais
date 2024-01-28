@@ -30,15 +30,17 @@ public class ExpenseDeclarationService {
 
     public ExpenseDeclaration startNewDeclaration() {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        User loggedInUser = customUserDetails.getUser();
+
         ExpenseDeclaration expenseDeclaration = new ExpenseDeclaration();
         expenseDeclaration.setDateCreation(Instant.now());
         expenseDeclaration.setCreated_at(Instant.now());
         expenseDeclaration.setStatut(statutDeclaration.EN_ATTENTE);
+        expenseDeclaration.setUser(loggedInUser);
 
         logger.info("expenseDeclaration créée !");
-
-        expenseDeclarationRepository.save(expenseDeclaration);
-
         return expenseDeclaration;
     }
 
@@ -62,13 +64,12 @@ public class ExpenseDeclarationService {
 
     }
 
-
     public void addTransportExpense(ExpenseDeclaration declaration, TransportExpense transportExpense) {
         declaration.addTransportExpense(transportExpense);
     }
 
-    public void addAccommodationExpense(ExpenseDeclaration declaration) {
-        declaration.addAccommodationExpense(new AccommodationExpense());
+    public void addAccommodationExpense(ExpenseDeclaration declaration, AccommodationExpense accommodationExpense) {
+        declaration.addAccommodationExpense(accommodationExpense);
     }
 
     public void addMealExpense(ExpenseDeclaration declaration, MealExpense mealExpense) {
@@ -79,27 +80,5 @@ public class ExpenseDeclarationService {
         return expenseDeclarationRepository.findByUserId(userId);
     }
 
-    public void handleTransport(ExpenseDeclaration declaration) {
-        // Handle transport logic
-    }
 
-    public void handleAccommodation(ExpenseDeclaration declaration) {
-        // Handle accommodation logic
-    }
-
-    public void handleMeal(ExpenseDeclaration declaration) {
-        // Handle meal logic
-    }
-
-    public void handleBankDetails(ExpenseDeclaration declaration) {
-        // Handle bank details logic
-    }
-
-    public void handleReview(ExpenseDeclaration declaration) {
-        // Handle review logic
-    }
-
-    public void handleSubmit(ExpenseDeclaration declaration) {
-        // Handle submission logic
-    }
 }
