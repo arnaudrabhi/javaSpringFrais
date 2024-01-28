@@ -3,26 +3,27 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.springframework.org/schema/webflow http://www.springframework.org/schema/webflow/spring-webflow-2.4.xsd">
 
-    <!-- Input variable to hold the new transportExpense -->
-    <var name="newTransportExpense" class="fr.limayrac.declarationFrais.declarationFrais.model.TransportExpense"/>
+    <!-- Input variable to hold the new accommodationExpense -->
+    <var name="newAccommodationExpense" class="fr.limayrac.declarationFrais.declarationFrais.model.AccommodationExpense"/>
     <input name="declaration" value="flowScope.declaration"/>
-    <!-- Start state to initialize the form for adding transportExpense -->
-    <view-state id="addTransportExpense" view="flows/transport/addTransportExpense" model="newTransportExpense">
+    <!-- Start state to initialize the form for adding accommodationExpense -->
+    <view-state id="addAccommodationExpense" view="flows/accommodation/addAccommodationExpense" model="newAccommodationExpense">
         <transition on="submit" to="addJustificatif"/>
         <transition on="cancel" to="finish"/>
     </view-state>
 
     <view-state id="addJustificatif" view="flows/meal/addJustificatif" model="fileUploadHandler">
 
-        <transition on="submit" to="processAddTransportExpense">
-            <evaluate expression="fileUploadHandler.processFile(newTransportExpense)"/>
+        <transition on="submit" to="processAddAccommodationExpense">
+            <evaluate expression="fileUploadHandler.processFile(newAccommodationExpense)"/>
         </transition>
         <transition on="cancel" to="finish"/>
     </view-state>
 
-    <!-- Action state to process the submitted form for adding transportExpense -->
-    <action-state id="processAddTransportExpense">
-        <evaluate expression="expenseDeclarationService.addTransportExpense(declaration, newTransportExpense)"/>
+
+    <!-- Action state to process the submitted form for adding accommodationExpense -->
+    <action-state id="processAddAccommodationExpense">
+        <evaluate expression="expenseDeclarationService.addAccommodationExpense(declaration, newAccommodationExpense)"/>
         <transition to="finish"/>
     </action-state>
 

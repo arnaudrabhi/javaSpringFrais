@@ -17,6 +17,14 @@ public class FileUploadHandler {
         justificatifFileService.storeFile(mealExpense, this.file);
     }
 
+    public void processFile(TransportExpense transportExpense) {
+        justificatifFileService.storeFile(transportExpense, this.file);
+    }
+
+    public void processFile(AccommodationExpense accommodationExpense) {
+        justificatifFileService.storeFile(accommodationExpense, this.file);
+    }
+
     public void setFile(MultipartFile file) {
         this.file = file;
     }

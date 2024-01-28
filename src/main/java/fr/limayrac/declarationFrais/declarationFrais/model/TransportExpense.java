@@ -27,6 +27,10 @@ public class TransportExpense implements Serializable {
     private String typeTransport;
     private String lieuDepart;
     private Double montant;
+
+    @ManyToOne
+    @JoinColumn(name = "justificatif_id")
+    private JustificatifFile justificatif;
     private Instant created_at;
     private Instant updated_at;
     @Column(name = "deleted")

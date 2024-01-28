@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta th:insert="~{baseElements/scripts :: script}">
+    <title>Frais d'hébergement</title>
+</head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container">
+    <div th:insert="~{baseElements/declarationNavbar :: declarationNavbar}"></div>
+    <div class="container">
+    <h2>Frais d'hébergement</h2>
+
+    <!-- Display a message if no accommodation expenses are available -->
+    <div th:if="${#lists.isEmpty(declaration.accommodationExpenses)}">
+        <p>Pas de frais d'hébergement.</p>
+    </div>
+
+    <!-- Display the list of accommodation expenses -->
+    <div th:if="${not #lists.isEmpty(declaration.accommodationExpenses)}">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Montant</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Iterate over the accommodation expenses -->
+            <tr th:each="accommodationExpense : ${declaration.accommodationExpenses}">
+                <td th:text="${accommodationExpense.montant}"></td>
+                <td>
+                    <!-- Add a button to delete the accommodation expense -->
+                    <form th:action="@{/deleteAccommodationExpense}" method="post">
+                        <input type="hidden" name="accommodationExpenseId" th:value="${accommodationExpense.id}" />
+                        <input type="button" class="btn btn-primary" name="_eventId_editAccommodationExpense" />
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Buttons to navigate to different parts of the subflow -->
+    <form th:action="${flowExecutionUrl}" method="post">
+        <input type="hidden" name="_eventId_addAccommodationExpense" />
+        <button type="submit" class="btn btn-primary">Ajouter un frais d'hébergement</button>
+    </form>
+
+    <form th:action="${flowExecutionUrl}" method="post">
+        <input type="hidden" name="_eventId_submit" />
+        <button type="submit" class="btn btn-success">Passer à l'étape suivante</button>
+    </form>
+
+    <form th:action="${flowExecutionUrl}" method="post">
+        <input type="hidden" name="_eventId_cancel" />
+        <button type="submit" class="btn btn-danger">Annuler</button>
+    </form>
+    </div>
+</div>
+</body>
+</html>

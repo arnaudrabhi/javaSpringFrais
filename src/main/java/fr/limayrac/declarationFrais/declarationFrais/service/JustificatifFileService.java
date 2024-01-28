@@ -2,8 +2,10 @@ package fr.limayrac.declarationFrais.declarationFrais.service;
 
 import fr.limayrac.declarationFrais.declarationFrais.exception.FileNotFoundException;
 import fr.limayrac.declarationFrais.declarationFrais.exception.FileStorageException;
+import fr.limayrac.declarationFrais.declarationFrais.model.AccommodationExpense;
 import fr.limayrac.declarationFrais.declarationFrais.model.JustificatifFile;
 import fr.limayrac.declarationFrais.declarationFrais.model.MealExpense;
+import fr.limayrac.declarationFrais.declarationFrais.model.TransportExpense;
 import fr.limayrac.declarationFrais.declarationFrais.repository.JustificatifFileRepository;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,46 @@ public class JustificatifFileService {
 
             JustificatifFile justificatifFile = new JustificatifFile(fileName, file.getContentType(), file.getBytes());
             mealExpense.setJustificatif(justificatifFile);
+
+
+            return justificatifFileRepository.save(justificatifFile);
+        } catch (IOException ex) {
+            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+        }
+    }
+
+    public JustificatifFile storeFile(TransportExpense transportExpense, MultipartFile file) {
+        // Normalize file name
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+        try {
+            // Check if the file's name contains invalid characters
+            if (fileName.contains("..")) {
+                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+            }
+
+            JustificatifFile justificatifFile = new JustificatifFile(fileName, file.getContentType(), file.getBytes());
+            transportExpense.setJustificatif(justificatifFile);
+
+
+            return justificatifFileRepository.save(justificatifFile);
+        } catch (IOException ex) {
+            throw new FileStorageException("Could not store file " + fileName + ". Please try again!", ex);
+        }
+    }
+
+    public JustificatifFile storeFile(AccommodationExpense accommodationExpense, MultipartFile file) {
+        // Normalize file name
+        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+
+        try {
+            // Check if the file's name contains invalid characters
+            if (fileName.contains("..")) {
+                throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
+            }
+
+            JustificatifFile justificatifFile = new JustificatifFile(fileName, file.getContentType(), file.getBytes());
+            accommodationExpense.setJustificatif(justificatifFile);
 
 
             return justificatifFileRepository.save(justificatifFile);

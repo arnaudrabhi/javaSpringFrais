@@ -3,14 +3,14 @@
     <head>
         <meta charset="UTF-8">
         <meta th:insert="~{baseElements/scripts :: script}">
-        <title>Déclaration de frais - Restauration</title>
+        <title>Déclaration de frais - Transport</title>
     </head>
 <body>
 <div th:insert="~{baseElements/navbar :: navbar}"></div>
 <div class="container">
     <div th:insert="~{baseElements/declarationNavbar :: declarationNavbar}"></div>
     <div class="container">
-        <h1>Déclaration de frais - Restauration</h1>
+        <h1>Déclaration de frais - Transport</h1>
 
         <form class="form" method="post" th:action="${flowExecutionUrl}" th:object="${fileUploadHandler}" enctype="multipart/form-data">
 
@@ -37,16 +37,5 @@
         </form>
     </div>
 </div>
-
-<script>
-    // Ajoutez du JavaScript pour afficher/masquer les champs en fonction de l'option sélectionnée
-    const montantDiv = document.getElementById('montantDetails');
-
-
-    accommodationOption.addEventListener('change', function () {
-        montantDiv.style.display = (accommodationOption.value === 'paidAccommodation') ? 'block' : 'none';
-    });
-</script>
-
 </body>
 </html>

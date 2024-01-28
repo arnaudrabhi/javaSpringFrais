@@ -57,6 +57,7 @@ public class WebFlowConfig extends AbstractFlowConfiguration {
                 .addFlowLocation("classpath:/flows/add-transport-flow.xml", "addTransportFlow")
                 .addFlowLocation("classpath:/flows/edit-transport-flow.xml", "editTransportFlow")
                 .addFlowLocation("classpath:/flows/add-meal-flow.xml", "addMealFlow")
+                .addFlowLocation("classpath:/flows/add-accommodation-flow.xml", "addAccommodationFlow")
                 .setFlowBuilderServices(flowBuilderServices())
                 .build();
     }

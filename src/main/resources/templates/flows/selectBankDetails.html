@@ -13,11 +13,21 @@
 
         <form class="form" method="post" th:action="${flowExecutionUrl}" th:object="${declaration}">
 
-            <div class="form-group">
-                <label for="roles">Role</label>
-                <select class="form-control" id="roles" name="roles" th:field="*{bankDetails}" required>
-                    <option th:each="bank : ${banks}" th:value="${bank.id}" th:text="${bank.toString}"></option>
-                </select>
+            <div class="row">
+                <div class="form-group">
+                    <label for="roles">Role</label>
+                    <select class="form-control" id="roles" name="roles" th:field="*{bankDetails}" required>
+                        <option th:each="bank : ${banks}" th:value="${bank.id}" th:text="${bank.toString}"></option>
+                    </select>
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="form-group">
+                    <label for="avancer"></label>
+                    <input class="btn btn-primary" type="submit" name="_eventId_submit" id="avancer" value="Avancer" />
+                </div>
             </div>
 
         </form>

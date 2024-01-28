@@ -27,7 +27,10 @@ public class MealExpense implements Serializable {
     private Long id;
 
     private Double montant;
-    private transient JustificatifFile justificatif;
+
+    @ManyToOne
+    @JoinColumn(name = "justificatif_id")
+    private JustificatifFile justificatif;
     private Instant created_at;
     private Instant updated_at;
     @Column(name = "deleted")

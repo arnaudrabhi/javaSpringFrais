@@ -3,16 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta th:insert="~{baseElements/scripts :: script}">
-    <title>Frais de restauration</title>
+    <title>Déclaration - Récapitulatif</title>
 </head>
 <body>
 <div th:insert="~{baseElements/navbar :: navbar}"></div>
 <div class="container">
     <div th:insert="~{baseElements/declarationNavbar :: declarationNavbar}"></div>
     <div class="container">
-        <h2>Declaration Recap</h2>
+        <h2>Déclaration - Récapitulatif</h2>
 
-        <!-- Declaration Info -->
         <div class="row">
             <div class="col-md-6">
                 <h4>Declaration Information</h4>
@@ -20,14 +19,6 @@
                 <p>Lieu Formation: <span th:text="${declaration.lieuFormation}"></span></p>
                 <p>Intitule Formation: <span th:text="${declaration.intituleFormation}"></span></p>
                 <p>Statut: <span th:text="${declaration.statut}"></span></p>
-                <p>Date Creation: <span th:text="${declaration.dateCreation}"></span></p>
-                <p>Date Validation: <span th:text="${declaration.dateValidation}"></span></p>
-                <!-- Add more fields as needed -->
-            </div>
-            <div class="col-md-6">
-                <h4>User Information</h4>
-                <p>User ID: <span th:text="${declaration.user?.id}"></span></p>
-                <!-- Add more user-related fields as needed -->
             </div>
         </div>
 
@@ -40,12 +31,15 @@
                 <p>Prenom Compte: <span th:text="${declaration.bankDetails?.prenomCompte}"></span></p>
                 <p>IBAN: <span th:text="${declaration.bankDetails?.IBAN}"></span></p>
                 <p>Nom Banque: <span th:text="${declaration.bankDetails?.nomBanque}"></span></p>
-                <!-- Add more bank details fields as needed -->
             </div>
         </div>
 
-        <!-- Transport Expenses -->
         <div class="row">
+            <div class="col-md-12">
+                <h4>Accommodation Expense</h4>
+                <p>Accommodation Type: <span th:text="${declaration.accommodationExpense?.accomodationType}"></span></p>
+                <p>Montant: <span th:text="${declaration.accommodationExpense?.montant}"></span></p>
+            </div>
             <div class="col-md-12">
                 <h4>Transport Expenses</h4>
                 <ul>
@@ -56,20 +50,6 @@
                     </li>
                 </ul>
             </div>
-        </div>
-
-        <!-- Accommodation Expense -->
-        <div class="row">
-            <div class="col-md-12">
-                <h4>Accommodation Expense</h4>
-                <p>Accommodation Type: <span th:text="${declaration.accommodationExpense?.accomodationType}"></span></p>
-                <p>Montant: <span th:text="${declaration.accommodationExpense?.montant}"></span></p>
-                <!-- Add more accommodation expense fields as needed -->
-            </div>
-        </div>
-
-        <!-- Meal Expenses -->
-        <div class="row">
             <div class="col-md-12">
                 <h4>Meal Expenses</h4>
                 <ul>
@@ -80,6 +60,15 @@
                 </ul>
             </div>
         </div>
+
+        <form class="form" method="post" th:action="${flowExecutionUrl}">
+        <div class="col">
+            <div class="form-group">
+                <label for="avancer"></label>
+                <input class="btn btn-primary" type="submit" name="_eventId_submit" id="avancer" value="Valider" />
+            </div>
+        </div>
+        </form>
 
     </div>
 </div>

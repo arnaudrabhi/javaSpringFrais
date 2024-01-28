@@ -28,6 +28,10 @@ public class AccommodationExpense implements Serializable {
     private Double montant;
     private Instant created_at;
     private Instant updated_at;
+
+    @ManyToOne
+    @JoinColumn(name = "justificatif_id")
+    private JustificatifFile justificatif;
     @Column(name = "deleted")
     private boolean deleted = Boolean.FALSE;
 

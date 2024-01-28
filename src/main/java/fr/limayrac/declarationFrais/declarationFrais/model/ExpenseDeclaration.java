@@ -111,10 +111,6 @@ public class ExpenseDeclaration implements Serializable {
         if (this.accommodationExpenses == null) {
             this.setAccommodationExpenses(new ArrayList<>());
         }
-        // Un seul accommodationExpense est enregistrable pour une déclaration pour l'instant
-        if (!this.accommodationExpenses.isEmpty()) {
-            return;
-        }
         accommodationExpenses.add(accommodationExpense);
         accommodationExpense.setExpenseDeclaration(this);
     }

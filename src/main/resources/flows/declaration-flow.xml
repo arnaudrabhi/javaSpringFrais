@@ -26,9 +26,7 @@
     <!-- Details de la formation 2-->
     <view-state id="detailFormationStep" view="flows/detaisFormation" model="declaration">
 
-        <transition on="nextStep" to="TransportStep">
-<!--            <evaluate expression="expenseDeclarationService.saveDeclaration(flowScope.declaration)" result="flowScope.declaration"/>-->
-        </transition>
+        <transition on="nextStep" to="TransportStep"/>
 
         <!-- Menu de navigation -->
         <transition on="goToPrepare" to="prepareDeclaration"/>
@@ -67,6 +65,11 @@
         <!-- Menu de navigation -->
         <transition on="goToPrepare" to="prepareDeclaration"/>
         <transition on="goToFormation" to="detailFormationStep"/>
+        <transition on="goToTransport" to="TransportStep"/>
+        <transition on="goToAccommodation" to="AccommodationStep"/>
+        <transition on="goToMealExpenses" to="mealExpense"/>
+        <transition on="goToBankDetails" to="bankCoordinates"/>
+        <transition on="goToRecap" to="recapitulatifDeclaration"/>
     </subflow-state>
 
     <subflow-state id="editTransportExpense" subflow="editTransportFlow">
@@ -86,12 +89,8 @@
     </subflow-state>
 
     <!-- Details des dépenses d'hébergement 4-->
-    <view-state id="AccommodationStep" view="flows/accommodation/addAccommodationExpense">
-        <on-entry>
-            <evaluate expression="expenseDeclarationService.addAccommodationExpense(declaration)"/>
-            <evaluate expression="declaration.getAccommodationExpense()" result="flowScope.accommodationExpense"/>
-        </on-entry>
-
+    <view-state id="AccommodationStep" view="flows/accommodation/accommodationExpenseMain">
+        <transition on="addAccommodationExpense" to="addAccommodationExpense"/>
         <transition on="submit" to="mealExpense"/>
 
         <!-- Menu de navigation -->
@@ -103,6 +102,22 @@
         <transition on="goToBankDetails" to="bankCoordinates"/>
         <transition on="goToRecap" to="recapitulatifDeclaration"/>
     </view-state>
+
+    <subflow-state id="addAccommodationExpense" subflow="addAccommodationFlow">
+
+        <input name="declaration" value="flowScope.declaration" />
+        <output name="declaration" value="flowScope.declaration" />
+        <transition on="finish" to="AccommodationStep"/>
+
+        <!-- Menu de navigation -->
+        <transition on="goToPrepare" to="prepareDeclaration"/>
+        <transition on="goToFormation" to="detailFormationStep"/>
+        <transition on="goToTransport" to="TransportStep"/>
+        <transition on="goToAccommodation" to="AccommodationStep"/>
+        <transition on="goToMealExpenses" to="mealExpense"/>
+        <transition on="goToBankDetails" to="bankCoordinates"/>
+        <transition on="goToRecap" to="recapitulatifDeclaration"/>
+    </subflow-state>
 
     <view-state id="mealExpense" view="flows/meal/mealExpenseMain">
         <transition on="addMealExpense" to="addMealExpense"/>
@@ -157,7 +172,9 @@
 
 
     <view-state id="recapitulatifDeclaration" view="flows/recapitulatifDeclaration">
-        <transition on="submit" to="end"/>
+        <transition on="submit" to="end">
+            <evaluate expression="expenseDeclarationService.saveDeclaration(declaration)"/>
+        </transition>
 
         <!-- Menu de navigation -->
         <transition on="goToPrepare" to="prepareDeclaration"/>
