@@ -11,6 +11,9 @@
 
     <!-- Préparation de déclaration 1-->
     <view-state id="prepareDeclaration" view="flows/prepareDeclaration" >
+        <on-entry>
+            <set name="flowScope.currentStep" value="'1'"/>
+        </on-entry>
         <transition on="nextStep" to="detailFormationStep"/>
 
         <!-- Menu de navigation -->
@@ -25,7 +28,9 @@
 
     <!-- Details de la formation 2-->
     <view-state id="detailFormationStep" view="flows/detaisFormation" model="declaration">
-
+        <on-entry>
+            <set name="flowScope.currentStep" value="'2'"/>
+        </on-entry>
         <transition on="nextStep" to="TransportStep"/>
 
         <!-- Menu de navigation -->
@@ -40,6 +45,9 @@
 
     <!-- Details des dépenses liées au Transport 3-->
     <view-state id="TransportStep" view="flows/transport/transportExpenseMain">
+        <on-entry>
+            <set name="flowScope.currentStep" value="'3'"/>
+        </on-entry>
         <transition on="addTransportExpense" to="addTransportExpense"/>
         <transition on="editTransportExpense" to="editTransportExpense">
             <set name="requestScope.transportExpenseId" value="requestParameters['transportExpenseId']"/>
@@ -90,6 +98,9 @@
 
     <!-- Details des dépenses d'hébergement 4-->
     <view-state id="AccommodationStep" view="flows/accommodation/accommodationExpenseMain">
+        <on-entry>
+            <set name="flowScope.currentStep" value="'4'"/>
+        </on-entry>
         <transition on="addAccommodationExpense" to="addAccommodationExpense"/>
         <transition on="submit" to="mealExpense"/>
 
@@ -120,6 +131,9 @@
     </subflow-state>
 
     <view-state id="mealExpense" view="flows/meal/mealExpenseMain">
+        <on-entry>
+            <set name="flowScope.currentStep" value="'5'"/>
+        </on-entry>
         <transition on="addMealExpense" to="addMealExpense"/>
 
         <transition on="submit" to="bankCoordinates"/>
@@ -157,8 +171,13 @@
     <view-state id="bankCoordinates" view="flows/selectBankDetails">
         <on-entry>
             <evaluate expression="expenseDeclarationService.getUserBankDetails()" result="flowScope.banks"/>
+            <set name="flowScope.currentStep" value="'6'"/>
         </on-entry>
-        <transition on="submit" to="recapitulatifDeclaration"/>
+
+        <transition on="submit" to="recapitulatifDeclaration">
+            <set name="flowScope.bankDetails" value="requestParameters['bankDetails']"/>
+            <evaluate expression="expenseDeclarationService.setBankDetails(declaration, bankDetailsService.getBankDetailsById(bankDetails))"/>
+        </transition>
 
         <!-- Menu de navigation -->
         <transition on="goToPrepare" to="prepareDeclaration"/>
@@ -172,6 +191,9 @@
 
 
     <view-state id="recapitulatifDeclaration" view="flows/recapitulatifDeclaration">
+        <on-entry>
+            <set name="flowScope.currentStep" value="'7'"/>
+        </on-entry>
         <transition on="submit" to="end">
             <evaluate expression="expenseDeclarationService.saveDeclaration(declaration)"/>
         </transition>

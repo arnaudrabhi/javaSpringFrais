@@ -41,24 +41,13 @@
                 <td th:text="${#dates.format(declaration.dateDeclaration, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td th:text="${declaration.lieuFormation}"></td>
                 <td th:text="${declaration.intituleFormation}"></td>
-                <td>
-                    <span th:text="${declaration.statut}"></span>
-                    <span th:if="${declaration.statut == 'EN_ATTENTE'}">En attente</span>
-                    <span th:if="${declaration.statut == 'VALIDE'}">Validée</span>
-                    <span th:if="${declaration.statut == 'INVALIDE'}">Invalidée</span>
-                </td>
+                <td th:text="${declaration.statut}"></td>
                 <td th:text="${#dates.format(declaration.dateValidation, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td th:text="${declaration.user != null ? declaration.user.getFullName() : 'N/A'}"></td>
                 <td>
-                    <a th:href="@{'/declaration/details/' + ${declaration.id}}">Détails</a>
-
-                    <!-- Boutons pour valider ou invalider la déclaration -->
-                    <form method="post" th:action="@{'/declaration/validate/' + ${declaration.id}}">
-                        <button type="submit" th:if="${declaration.statut == 'EN_ATTENTE'}">Valider</button>
-                    </form>
-                    <form method="post" th:action="@{'/declaration/invalidate/' + ${declaration.id}}">
-                        <button type="submit" th:if="${declaration.statut == 'EN_ATTENTE'}">Invalider</button>
-                    </form>
+                    <!-- Add links/buttons for actions (view, edit, delete, etc.) -->
+                    <a th:href="@{/declaration/details/{id}(id=${declaration.id})}">Voir le details</a>
+                    <!-- Add more actions as needed -->
                 </td>
             </tr>
             </tbody>

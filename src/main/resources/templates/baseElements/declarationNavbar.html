@@ -1,29 +1,28 @@
 <div th:fragment="declarationNavbar">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav id="navbarDeclaration" class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container">
             <ul class="navbar-nav">
-                <li class="nav-item" th:class="${currentStep == 'prepareDeclaration' ? 'active' : ''}">
+                <li class="nav-item" th:class="${currentStep == '1' ? 'nav-item active' : 'nav-item previous'}">
                     <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToPrepare'">Préparation de déclaration</a>
                 </li>
-                <li class="nav-item" th:class="${currentStep == 'detailFormationStep' ? 'active' : ''}">
-                    <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToFormation'" >Details de la Formation</a>
+                <li class="nav-item" th:class="${currentStep == '2' ? 'nav-item active' : (currentStep > '2' ? 'nav-item previous' : 'nav-item')}">
+                    <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToFormation'">Details de la Formation</a>
                 </li>
-                <li class="nav-item" th:class="${currentStep == 'detailFormationStep' ? 'active' : ''}">
-                    <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToTransport'" >Frais de transport</a>
+                <li class="nav-item" th:class="${currentStep == '3' ? 'nav-item active' : (currentStep > '3' ? 'nav-item previous' : 'nav-item')}">
+                    <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToTransport'">Frais de transport</a>
                 </li>
-                <li class="nav-item" th:class="${currentStep == 'AccommodationStep' ? 'active' : ''}">
+                <li class="nav-item" th:class="${currentStep == '4' ? 'nav-item active' : (currentStep > '4' ? 'nav-item previous' : 'nav-item')}">
                     <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToAccommodation'">Détails des dépenses liées à l'hébergement</a>
                 </li>
-                <li class="nav-item" th:class="${currentStep == 'mealExpense' ? 'active' : ''}">
+                <li class="nav-item" th:class="${currentStep == '5' ? 'nav-item active' : (currentStep > '5' ? 'nav-item previous' : 'nav-item')}">
                     <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToMealExpenses'">Détails des dépenses liées à la restauration</a>
                 </li>
-                <li class="nav-item" th:class="${currentStep == 'bankCoordinates' ? 'active' : ''}">
+                <li class="nav-item" th:class="${currentStep == '6' ? 'nav-item active' : (currentStep > '6' ? 'nav-item previous' : 'nav-item')}">
                     <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToBankDetails'">Coordonnées bancaires</a>
                 </li>
-                <li class="nav-item" th:class="${currentStep == 'recapitulatifDeclaration' ? 'active' : ''}">
+                <li class="nav-item" th:class="${currentStep == '7' ? 'nav-item active' : (currentStep > '7' ? 'nav-item previous' : 'nav-item')}">
                     <a class="nav-link" th:href="${flowExecutionUrl} + '&_eventId=goToRecap'">Récapitulatif</a>
                 </li>
-                <!-- Ajoutez plus d'étapes au besoin -->
             </ul>
         </div>
     </nav>
@@ -31,3 +30,32 @@
         <div th:text="${declaration.toString()}"></div>
     </div>
 </div>
+<style  th:fragment="declarationNavbarStyle">
+
+    #navbarDeclaration {
+        .navbar-nav .nav-item {
+            position: relative;
+        }
+
+        .navbar-nav .nav-item::before {
+            content: "";
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: gray;
+            transform: translateX(-50%);
+        }
+
+        .navbar-nav .nav-item.active::before {
+            background-color: orange; /* Couleur pour l'élément actuel */
+        }
+
+        .navbar-nav .nav-item.previous::before {
+            background-color: green; /* Couleur pour les éléments précédents */
+        }
+    }
+
+</style>

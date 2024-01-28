@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta th:insert="~{baseElements/scripts :: script}">
+    <div th:insert="~{baseElements/declarationNavbar :: declarationNavbarStyle}"></div>
     <title>Déclaration - Récapitulatif</title>
 </head>
 <body>
@@ -20,12 +21,9 @@
                 <p>Intitule Formation: <span th:text="${declaration.intituleFormation}"></span></p>
                 <p>Statut: <span th:text="${declaration.statut}"></span></p>
             </div>
-        </div>
 
-        <!-- Bank Details -->
-        <div class="row">
             <div class="col-md-12">
-                <h4>Bank Details</h4>
+                <h4>Compte bancaire choisi</h4>
                 <p>Nom Enregistrement: <span th:text="${declaration.bankDetails?.nomEnregistrement}"></span></p>
                 <p>Nom Compte: <span th:text="${declaration.bankDetails?.nomCompte}"></span></p>
                 <p>Prenom Compte: <span th:text="${declaration.bankDetails?.prenomCompte}"></span></p>
