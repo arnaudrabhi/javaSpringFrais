@@ -14,14 +14,13 @@
         <transition on="nextStep" to="detailFormationStep"/>
 
         <!-- Menu de navigation -->
-<!--        <transition on="goToPrepare" to="prepareDeclaration"/>-->
-<!--        <transition on="goToFormation" to="detailFormationStep"/>-->
-<!--        <transition on="goToTransport" to="TransportStep"/>-->
-<!--        <transition on="goToAccommodation" to="AccommodationStep"/>-->
-<!--        <transition on="goToMealExpenses" to="mealExpense"/>-->
-<!--        <transition on="goToBankDetails" to="bankCoordinates"/>-->
-<!--        <transition on="goToRecap" to="recapitulatifDeclaration"/>-->
-
+        <transition on="goToPrepare" to="prepareDeclaration"/>
+        <transition on="goToFormation" to="detailFormationStep"/>
+        <transition on="goToTransport" to="TransportStep"/>
+        <transition on="goToAccommodation" to="AccommodationStep"/>
+        <transition on="goToMealExpenses" to="mealExpense"/>
+        <transition on="goToBankDetails" to="bankCoordinates"/>
+        <transition on="goToRecap" to="recapitulatifDeclaration"/>
     </view-state>
 
     <!-- Details de la formation 2-->
@@ -31,6 +30,14 @@
 <!--            <evaluate expression="expenseDeclarationService.saveDeclaration(flowScope.declaration)" result="flowScope.declaration"/>-->
         </transition>
 
+        <!-- Menu de navigation -->
+        <transition on="goToPrepare" to="prepareDeclaration"/>
+        <transition on="goToFormation" to="detailFormationStep"/>
+        <transition on="goToTransport" to="TransportStep"/>
+        <transition on="goToAccommodation" to="AccommodationStep"/>
+        <transition on="goToMealExpenses" to="mealExpense"/>
+        <transition on="goToBankDetails" to="bankCoordinates"/>
+        <transition on="goToRecap" to="recapitulatifDeclaration"/>
     </view-state>
 
     <!-- Details des dépenses liées au Transport 3-->
@@ -40,12 +47,26 @@
             <set name="requestScope.transportExpenseId" value="requestParameters['transportExpenseId']"/>
         </transition>
         <transition on="submit" to="AccommodationStep"/>
+
+        <!-- Menu de navigation -->
+        <transition on="goToPrepare" to="prepareDeclaration"/>
+        <transition on="goToFormation" to="detailFormationStep"/>
+        <transition on="goToTransport" to="TransportStep"/>
+        <transition on="goToAccommodation" to="AccommodationStep"/>
+        <transition on="goToMealExpenses" to="mealExpense"/>
+        <transition on="goToBankDetails" to="bankCoordinates"/>
+        <transition on="goToRecap" to="recapitulatifDeclaration"/>
+
     </view-state>
 
     <subflow-state id="addTransportExpense" subflow="addTransportFlow">
         <input name="declaration" value="flowScope.declaration" />
         <output name="declaration" value="flowScope.declaration" />
         <transition on="finish" to="TransportStep"/>
+
+        <!-- Menu de navigation -->
+        <transition on="goToPrepare" to="prepareDeclaration"/>
+        <transition on="goToFormation" to="detailFormationStep"/>
     </subflow-state>
 
     <subflow-state id="editTransportExpense" subflow="editTransportFlow">
@@ -54,6 +75,14 @@
 
         <output name="declaration" value="flowScope.declaration" />
 
+        <!-- Menu de navigation -->
+        <transition on="goToPrepare" to="prepareDeclaration"/>
+        <transition on="goToFormation" to="detailFormationStep"/>
+        <transition on="goToTransport" to="TransportStep"/>
+        <transition on="goToAccommodation" to="AccommodationStep"/>
+        <transition on="goToMealExpenses" to="mealExpense"/>
+        <transition on="goToBankDetails" to="bankCoordinates"/>
+        <transition on="goToRecap" to="recapitulatifDeclaration"/>
     </subflow-state>
 
     <!-- Details des dépenses d'hébergement 4-->
@@ -64,12 +93,30 @@
         </on-entry>
 
         <transition on="submit" to="mealExpense"/>
+
+        <!-- Menu de navigation -->
+        <transition on="goToPrepare" to="prepareDeclaration"/>
+        <transition on="goToFormation" to="detailFormationStep"/>
+        <transition on="goToTransport" to="TransportStep"/>
+        <transition on="goToAccommodation" to="AccommodationStep"/>
+        <transition on="goToMealExpenses" to="mealExpense"/>
+        <transition on="goToBankDetails" to="bankCoordinates"/>
+        <transition on="goToRecap" to="recapitulatifDeclaration"/>
     </view-state>
 
     <view-state id="mealExpense" view="flows/meal/mealExpenseMain">
         <transition on="addMealExpense" to="addMealExpense"/>
 
         <transition on="submit" to="bankCoordinates"/>
+
+        <!-- Menu de navigation -->
+        <transition on="goToPrepare" to="prepareDeclaration"/>
+        <transition on="goToFormation" to="detailFormationStep"/>
+        <transition on="goToTransport" to="TransportStep"/>
+        <transition on="goToAccommodation" to="AccommodationStep"/>
+        <transition on="goToMealExpenses" to="mealExpense"/>
+        <transition on="goToBankDetails" to="bankCoordinates"/>
+        <transition on="goToRecap" to="recapitulatifDeclaration"/>
     </view-state>
 
 
@@ -79,19 +126,47 @@
         <output name="declaration" value="flowScope.declaration" />
         <transition on="finish" to="mealExpense"/>
 
+        <!-- Menu de navigation -->
+        <transition on="goToPrepare" to="prepareDeclaration"/>
+        <transition on="goToFormation" to="detailFormationStep"/>
+        <transition on="goToTransport" to="TransportStep"/>
+        <transition on="goToAccommodation" to="AccommodationStep"/>
+        <transition on="goToMealExpenses" to="mealExpense"/>
+        <transition on="goToBankDetails" to="bankCoordinates"/>
+        <transition on="goToRecap" to="recapitulatifDeclaration"/>
+
     </subflow-state>
 
     <!-- Details des dépenses liées à la restauration 5-->
 
-
-
-    <view-state id="bankCoordinates">
+    <view-state id="bankCoordinates" view="flows/selectBankDetails">
+        <on-entry>
+            <evaluate expression="expenseDeclarationService.getUserBankDetails()" result="flowScope.banks"/>
+        </on-entry>
         <transition on="submit" to="recapitulatifDeclaration"/>
+
+        <!-- Menu de navigation -->
+        <transition on="goToPrepare" to="prepareDeclaration"/>
+        <transition on="goToFormation" to="detailFormationStep"/>
+        <transition on="goToTransport" to="TransportStep"/>
+        <transition on="goToAccommodation" to="AccommodationStep"/>
+        <transition on="goToMealExpenses" to="mealExpense"/>
+        <transition on="goToBankDetails" to="bankCoordinates"/>
+        <transition on="goToRecap" to="recapitulatifDeclaration"/>
     </view-state>
 
 
-    <view-state id="recapitulatifDeclaration">
+    <view-state id="recapitulatifDeclaration" view="flows/recapitulatifDeclaration">
         <transition on="submit" to="end"/>
+
+        <!-- Menu de navigation -->
+        <transition on="goToPrepare" to="prepareDeclaration"/>
+        <transition on="goToFormation" to="detailFormationStep"/>
+        <transition on="goToTransport" to="TransportStep"/>
+        <transition on="goToAccommodation" to="AccommodationStep"/>
+        <transition on="goToMealExpenses" to="mealExpense"/>
+        <transition on="goToBankDetails" to="bankCoordinates"/>
+        <transition on="goToRecap" to="recapitulatifDeclaration"/>
     </view-state>
 
     <end-state id="end" />
