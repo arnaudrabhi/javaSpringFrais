@@ -2,6 +2,7 @@
 package fr.limayrac.declarationFrais.declarationFrais.service;
 
 import fr.limayrac.declarationFrais.declarationFrais.model.BankDetails;
+import fr.limayrac.declarationFrais.declarationFrais.model.User;
 import fr.limayrac.declarationFrais.declarationFrais.repository.BankDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,10 @@ public class BankDetailsService {
     @Autowired
     public BankDetailsService(BankDetailsRepository bankDetailsRepository) {
         this.bankDetailsRepository = bankDetailsRepository;
+    }
+
+    public List<BankDetails> getBankByUser(User user) {
+        return bankDetailsRepository.getByUser(user);
     }
 
     public List<BankDetails> getAllBankDetails() {

@@ -11,6 +11,8 @@ import org.hibernate.annotations.Where;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -39,9 +41,13 @@ public class BankDetails implements Serializable {
     @JoinColumn(name = "id_User")
     private User user;
 
-    @OneToOne
+    @OneToMany
     @JoinColumn(name = "id_ExpenseDeclaration", unique = true)
-    private ExpenseDeclaration expenseDeclaration;
+    private List<ExpenseDeclaration> expenseDeclarations = new ArrayList<>();
+
+    public String toString() {
+        return nomEnregistrement + " | " + nomBanque + " | " + IBAN;
+    }
 
     // getters and setters
 }

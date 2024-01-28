@@ -45,6 +45,10 @@ public class ExpenseDeclaration implements Serializable {
     @JoinColumn(name = "id_User")
     private User user;
 
+    @ManyToOne
+    @JoinColumn(name = "id_bankDetails")
+    private BankDetails bankDetails;
+
     @OneToMany(mappedBy = "expenseDeclaration", cascade = CascadeType.ALL)
     private List<TransportExpense> transportExpenses = new ArrayList<>();
 
@@ -72,7 +76,7 @@ public class ExpenseDeclaration implements Serializable {
         stringBuilder.append(", deleted=").append(deleted);
 
         if (user != null) {
-            stringBuilder.append(", user=").append(user.getId()); // Assuming User class has an 'id' field
+            stringBuilder.append(", user=").append(user.getId());
         } else {
             stringBuilder.append(", user=null");
         }
@@ -107,7 +111,7 @@ public class ExpenseDeclaration implements Serializable {
         if (this.accommodationExpenses == null) {
             this.setAccommodationExpenses(new ArrayList<>());
         }
-        // Un seul accommodationExpense est enregistrable pour une déclaration
+        // Un seul accommodationExpense est enregistrable pour une déclaration pour l'instant
         if (!this.accommodationExpenses.isEmpty()) {
             return;
         }

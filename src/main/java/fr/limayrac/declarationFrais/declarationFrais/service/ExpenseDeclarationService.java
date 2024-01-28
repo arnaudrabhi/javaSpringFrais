@@ -2,17 +2,20 @@ package fr.limayrac.declarationFrais.declarationFrais.service;
 
 import fr.limayrac.declarationFrais.declarationFrais.controller.UserController;
 import fr.limayrac.declarationFrais.declarationFrais.enums.statutDeclaration;
-import fr.limayrac.declarationFrais.declarationFrais.model.AccommodationExpense;
-import fr.limayrac.declarationFrais.declarationFrais.model.ExpenseDeclaration;
-import fr.limayrac.declarationFrais.declarationFrais.model.TransportExpense;
+import fr.limayrac.declarationFrais.declarationFrais.model.*;
+import fr.limayrac.declarationFrais.declarationFrais.repository.BankDetailsRepository;
 import fr.limayrac.declarationFrais.declarationFrais.repository.ExpenseDeclarationRepository;
+import fr.limayrac.declarationFrais.declarationFrais.security.CustomUserDetails;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service("expenseDeclarationService")
 public class ExpenseDeclarationService {
@@ -21,6 +24,9 @@ public class ExpenseDeclarationService {
 
     @Autowired
     private ExpenseDeclarationRepository expenseDeclarationRepository;
+
+    @Autowired
+    private BankDetailsRepository bankDetailsRepository;
 
     public ExpenseDeclaration startNewDeclaration() {
 
@@ -41,6 +47,21 @@ public class ExpenseDeclarationService {
         return declaration;
     }
 
+    public List<BankDetails> getUserBankDetails() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        User loggedInUser = customUserDetails.getUser();
+
+        logger.info("User récupéré" + loggedInUser);
+
+        List<BankDetails> listBankDetails = bankDetailsRepository.getByUser(loggedInUser);
+
+        logger.info(listBankDetails.toString());
+
+        return listBankDetails;
+
+    }
+
 
     public void addTransportExpense(ExpenseDeclaration declaration, TransportExpense transportExpense) {
         declaration.addTransportExpense(transportExpense);
@@ -50,9 +71,13 @@ public class ExpenseDeclarationService {
         declaration.addAccommodationExpense(new AccommodationExpense());
     }
 
+    public void addMealExpense(ExpenseDeclaration declaration, MealExpense mealExpense) {
+        declaration.addMealExpense(mealExpense);
+    }
 
-
-
+    public ExpenseDeclaration findByUserId(Long userId) {
+        return expenseDeclarationRepository.findByUserId(userId);
+    }
 
     public void handleTransport(ExpenseDeclaration declaration) {
         // Handle transport logic

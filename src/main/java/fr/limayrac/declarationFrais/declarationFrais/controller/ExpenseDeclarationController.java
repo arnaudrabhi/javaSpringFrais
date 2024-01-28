@@ -29,8 +29,6 @@ public class ExpenseDeclarationController {
     @GetMapping("/mes-declarations")
     public String showExpenseDeclarations(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
-        // Fetch the logged-in user
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         User loggedInUser = customUserDetails.getUser();
 

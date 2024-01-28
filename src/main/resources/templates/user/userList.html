@@ -29,7 +29,6 @@
                 <th>Prénom</th>
                 <th>Email</th>
                 <th>Roles</th>
-                <th>Client (ID)</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -41,7 +40,6 @@
                 <td><span th:text="${user.firstName}"> Prénom </span></td>
                 <td><span th:text="${user.email}"> Email </span></td>
                 <td><span th:each="role : ${user.roles}" th:text="${role.name}"></span></td>
-                <td><span th:if="${user.customer}" th:text="${user.customer.id}"> Client </span></td>
                 <td>
                     <a class="btn btn-primary" th:href="@{/user/edit/{id}(id=${user.id})}">Modifier</a>
                     <a class="btn btn-danger" th:href="@{/user/delete/{id}(id=${user.id})}">Supprimer</a>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta th:insert="~{baseElements/scripts :: script}">
+    <title>Frais de restauration</title>
+</head>
+<body>
+<div th:insert="~{baseElements/navbar :: navbar}"></div>
+<div class="container">
+    <div th:insert="~{baseElements/declarationNavbar :: declarationNavbar}"></div>
+    <div class="container">
+
+        <form class="form" method="post" th:action="${flowExecutionUrl}" th:object="${declaration}">
+
+            <div class="form-group">
+                <label for="roles">Role</label>
+                <select class="form-control" id="roles" name="roles" th:field="*{bankDetails}" required>
+                    <option th:each="bank : ${banks}" th:value="${bank.id}" th:text="${bank.toString}"></option>
+                </select>
+            </div>
+
+        </form>
+
+
+
+
+    </div>
+</div>
+
+</body>
+</html>
