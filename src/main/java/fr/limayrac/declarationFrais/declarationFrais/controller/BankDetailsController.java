@@ -44,9 +44,8 @@ public class BankDetailsController {
 
     @GetMapping("/edit/{id}")
     public String showEditForm(@PathVariable("id") Long id, Model model) {
-        Optional<BankDetails> optionalBankDetails = bankDetailsService.getBankDetailsById(id);
-        if (optionalBankDetails.isPresent()) {
-            BankDetails bankDetails = optionalBankDetails.get();
+        BankDetails bankDetails = bankDetailsService.getBankDetailsById(id);
+        if (bankDetails != null) {
             model.addAttribute("bankDetails", bankDetails);
             return "bankDetails/edit";
         }

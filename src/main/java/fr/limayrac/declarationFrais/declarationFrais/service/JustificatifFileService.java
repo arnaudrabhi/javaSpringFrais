@@ -25,7 +25,6 @@ public class JustificatifFileService {
     private JustificatifFileRepository justificatifFileRepository;
 
     public JustificatifFile storeFile(MealExpense mealExpense, MultipartFile file) {
-        // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
@@ -45,11 +44,9 @@ public class JustificatifFileService {
     }
 
     public JustificatifFile storeFile(TransportExpense transportExpense, MultipartFile file) {
-        // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {
-            // Check if the file's name contains invalid characters
             if (fileName.contains("..")) {
                 throw new FileStorageException("Sorry! Filename contains invalid path sequence " + fileName);
             }
@@ -65,7 +62,6 @@ public class JustificatifFileService {
     }
 
     public JustificatifFile storeFile(AccommodationExpense accommodationExpense, MultipartFile file) {
-        // Normalize file name
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 
         try {

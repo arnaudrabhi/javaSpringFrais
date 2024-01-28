@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
 import java.io.Serializable;
+import java.time.Instant;
 import java.util.UUID;
 
 @Entity
@@ -16,15 +17,17 @@ public class JustificatifFile implements Serializable {
     private UUID id;
 
     private String fileName;
-
     private String fileType;
+    private Instant created_at;
+    private Instant updated_at;
 
     @Lob
     @Column(name = "data", columnDefinition="BLOB")
     private byte[] data;
 
     public JustificatifFile() {
-
+        this.created_at = Instant.now();
+        this.updated_at = Instant.now();
     }
 
     public JustificatifFile(String fileName, String fileType, byte[] data) {

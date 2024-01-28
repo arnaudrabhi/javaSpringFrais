@@ -17,7 +17,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "bank_details")
 @SQLRestriction("deleted=false")
@@ -49,6 +48,10 @@ public class BankDetails implements Serializable {
         return nomEnregistrement + " | " + nomBanque + " | " + IBAN;
     }
 
+    public BankDetails() {
+        this.created_at = Instant.now();
+        this.updated_at = Instant.now();
+    }
     // getters and setters
 }
 

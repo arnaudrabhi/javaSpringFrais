@@ -16,7 +16,6 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "meal_expenses")
 @SQLRestriction("deleted=false")
@@ -40,5 +39,9 @@ public class MealExpense implements Serializable {
     @JoinColumn(name = "id_ExpenseDeclaration")
     private ExpenseDeclaration expenseDeclaration;
 
+    public MealExpense() {
+        this.created_at = Instant.now();
+        this.updated_at = Instant.now();
+    }
     // getters and setters
 }

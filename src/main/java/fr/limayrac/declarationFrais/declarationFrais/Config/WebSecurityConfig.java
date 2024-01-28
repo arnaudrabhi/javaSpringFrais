@@ -37,6 +37,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers("/declaration/mes-declarations").authenticated()
+                                .requestMatchers("/declaration/details/*").authenticated()
                                 .requestMatchers("/declarationFlow").authenticated()
                                 .requestMatchers("/bankDetails/list").authenticated()
                                 .requestMatchers("/user/list").hasRole("ADMIN")

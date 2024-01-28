@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service("bankDetailsService")
 public class BankDetailsService {
 
     private final BankDetailsRepository bankDetailsRepository;
@@ -28,8 +28,10 @@ public class BankDetailsService {
         return bankDetailsRepository.findAll();
     }
 
-    public Optional<BankDetails> getBankDetailsById(Long id) {
-        return bankDetailsRepository.findById(id);
+    public BankDetails getBankDetailsById(Long id) {
+
+        Optional<BankDetails> optionalBankDetails = bankDetailsRepository.findById(id);
+        return optionalBankDetails.orElse(null);
     }
 
     public BankDetails saveBankDetails(BankDetails bankDetails) {

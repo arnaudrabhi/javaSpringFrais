@@ -35,8 +35,9 @@ public class ExpenseDeclarationService {
         User loggedInUser = customUserDetails.getUser();
 
         ExpenseDeclaration expenseDeclaration = new ExpenseDeclaration();
-        expenseDeclaration.setDateCreation(Instant.now());
         expenseDeclaration.setCreated_at(Instant.now());
+        expenseDeclaration.setUpdated_at(Instant.now());
+
         expenseDeclaration.setStatut(statutDeclaration.EN_ATTENTE);
         expenseDeclaration.setUser(loggedInUser);
 
@@ -74,6 +75,10 @@ public class ExpenseDeclarationService {
 
     public void addMealExpense(ExpenseDeclaration declaration, MealExpense mealExpense) {
         declaration.addMealExpense(mealExpense);
+    }
+
+    public void setBankDetails(ExpenseDeclaration declaration, BankDetails bankDetails) {
+        declaration.setBankDetails(bankDetails);
     }
 
     public ExpenseDeclaration findByUserId(Long userId) {

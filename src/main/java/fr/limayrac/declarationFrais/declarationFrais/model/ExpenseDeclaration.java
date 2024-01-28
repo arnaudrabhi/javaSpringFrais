@@ -18,7 +18,6 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "expense_declaration")
 @SQLRestriction("deleted=false")
@@ -34,7 +33,6 @@ public class ExpenseDeclaration implements Serializable {
 
     @Enumerated(EnumType.STRING)
     private statutDeclaration statut;
-    private Instant dateCreation;
     private Instant dateValidation;
     private Instant created_at;
     private Instant updated_at;
@@ -61,6 +59,15 @@ public class ExpenseDeclaration implements Serializable {
     @OneToMany(mappedBy = "expenseDeclaration", cascade = CascadeType.ALL)
     private List<ExpenseLog> expenseLogs;
 
+    public ExpenseDeclaration() {
+        this.created_at = Instant.now();
+        this.updated_at = Instant.now();
+    }
+
+    public void setBankDetails(BankDetails bankDetails) {
+        this.bankDetails = bankDetails;
+    }
+
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder("ExpenseDeclaration{");
 
@@ -69,7 +76,6 @@ public class ExpenseDeclaration implements Serializable {
         stringBuilder.append(", lieuFormation='").append(lieuFormation).append('\'');
         stringBuilder.append(", intituleFormation='").append(intituleFormation).append('\'');
         stringBuilder.append(", statut=").append(statut);
-        stringBuilder.append(", dateCreation=").append(dateCreation);
         stringBuilder.append(", dateValidation=").append(dateValidation);
         stringBuilder.append(", created_at=").append(created_at);
         stringBuilder.append(", updated_at=").append(updated_at);

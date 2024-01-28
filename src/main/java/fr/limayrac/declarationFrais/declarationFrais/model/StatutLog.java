@@ -12,7 +12,6 @@ import java.time.Instant;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "statut_log")
 @SQLRestriction("deleted=false")
@@ -30,6 +29,11 @@ public class StatutLog {
     @ManyToOne
     @JoinColumn(name = "id_ExpenseDeclaration")
     private ExpenseDeclaration expenseDeclaration;
+
+    public StatutLog() {
+        this.created_at = Instant.now();
+        this.updated_at = Instant.now();
+    }
 
     // getters and setters
 }

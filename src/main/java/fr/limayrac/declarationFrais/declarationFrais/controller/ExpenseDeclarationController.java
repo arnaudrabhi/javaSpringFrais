@@ -1,5 +1,6 @@
 package fr.limayrac.declarationFrais.declarationFrais.controller;
 
+import fr.limayrac.declarationFrais.declarationFrais.enums.statutDeclaration;
 import fr.limayrac.declarationFrais.declarationFrais.model.ExpenseDeclaration;
 import fr.limayrac.declarationFrais.declarationFrais.model.User;
 import fr.limayrac.declarationFrais.declarationFrais.repository.ExpenseDeclarationRepository;
@@ -27,32 +28,71 @@ public class ExpenseDeclarationController {
 
 
     @GetMapping("/mes-declarations")
-    public String showExpenseDeclarations(Model model) {
+    public String showMyExpenseDeclarations(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
         User loggedInUser = customUserDetails.getUser();
 
-        // Fetch expense declarations for the user
         List<ExpenseDeclaration> expenseDeclarations = expenseDeclarationRepository.findByUser(loggedInUser);
 
-        // Add expense declarations to the model
         model.addAttribute("expenseDeclarations", expenseDeclarations);
 
-        return "expenseDeclaration/list"; // This assumes you have a Thymeleaf template named "list.html"
+        return "expenseDeclaration/myList";
+    }
+
+
+    @GetMapping("/all")
+    public String showAllExpenseDeclarations(Model model) {
+        List<ExpenseDeclaration> expenseDeclarations = expenseDeclarationRepository.findAll();
+        model.addAttribute("expenseDeclarations", expenseDeclarations);
+
+        return "expenseDeclaration/list";
     }
 
     @GetMapping("/details/{id:[\\d]+}")
     public String showExpenseDeclarationDetails(@PathVariable Long id, Model model) {
-        // Fetch the expense declaration by ID
         Optional<ExpenseDeclaration> expenseDeclaration = expenseDeclarationRepository.findById(id);
 
+        if (expenseDeclaration.isPresent()) {
+            model.addAttribute("expenseDeclaration", expenseDeclaration.get());
+            return "expenseDeclaration/details";
+        }
 
-
-        // Add expense declaration details to the model
-        model.addAttribute("expenseDeclaration", expenseDeclaration);
-
-        return "expenseDeclaration/details"; // This assumes you have a Thymeleaf template named "details.html"
+        return showMyExpenseDeclarations(model);
     }
 
 
+    @PostMapping("/validate/{id:[\\d]+}")
+    public String validateExpenseDeclaration(@PathVariable Long id, Model model) {
+        Optional<ExpenseDeclaration> optionalExpenseDeclaration = expenseDeclarationRepository.findById(id);
+
+        if (optionalExpenseDeclaration.isPresent()) {
+            ExpenseDeclaration expenseDeclaration = optionalExpenseDeclaration.get();
+            expenseDeclaration.setStatut(statutDeclaration.VALIDE); // Mettez à jour le statut
+
+            // Ajoutez ici le code pour enregistrer la mise à jour dans le repository
+
+            // Redirigez vers la page de la liste des déclarations après la validation
+            return "redirect:/declaration/all";
+        }
+
+        return showAllExpenseDeclarations(model);
+    }
+
+    @PostMapping("/invalidate/{id:[\\d]+}")
+    public String invalidateExpenseDeclaration(@PathVariable Long id, Model model) {
+        Optional<ExpenseDeclaration> optionalExpenseDeclaration = expenseDeclarationRepository.findById(id);
+
+        if (optionalExpenseDeclaration.isPresent()) {
+            ExpenseDeclaration expenseDeclaration = optionalExpenseDeclaration.get();
+            expenseDeclaration.setStatut(statutDeclaration.INVALIDE); // Mettez à jour le statut
+
+            // Ajoutez ici le code pour enregistrer la mise à jour dans le repository
+
+            // Redirigez vers la page de la liste des déclarations après l'invalidation
+            return "redirect:/declaration/all";
+        }
+
+        return showAllExpenseDeclarations(model);
+    }
 }

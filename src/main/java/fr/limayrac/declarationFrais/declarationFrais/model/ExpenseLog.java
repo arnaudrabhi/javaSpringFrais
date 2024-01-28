@@ -15,7 +15,6 @@ import java.util.Date;
 @Entity
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "expense_log")
 @SQLRestriction("deleted=false")
@@ -42,6 +41,10 @@ public class ExpenseLog {
     @JoinColumn(name = "id_ExpenseDeclaration")
     private ExpenseDeclaration expenseDeclaration;
 
+    public ExpenseLog() {
+        this.created_at = Instant.now();
+        this.updated_at = Instant.now();
+    }
     // getters and setters
 }
 
