@@ -5,4 +5,5 @@ public enum statutDeclaration {
     EN_ATTENTE,
     VALIDE,
     INVALIDE
+
 }

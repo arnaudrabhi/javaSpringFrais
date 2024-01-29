@@ -36,16 +36,15 @@
             </thead>
             <tbody th:if="${!#lists.isEmpty(expenseDeclarations)}">
             <!-- Iterate over the list of expense declarations -->
-            <tr th:each="declaration : ${expenseDeclarations}">
+            <tr th:each="declaration : ${expenseDeclarations}"  th:with="statutDeclaration=${T(fr.limayrac.declarationFrais.declarationFrais.enums.statutDeclaration)}">
                 <td th:text="${declaration.id}"></td>
                 <td th:text="${#dates.format(declaration.dateDeclaration, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td th:text="${declaration.lieuFormation}"></td>
                 <td th:text="${declaration.intituleFormation}"></td>
                 <td>
-                    <span th:text="${declaration.statut}"></span>
-                    <span th:if="${declaration.statut == 'EN_ATTENTE'}">En attente</span>
-                    <span th:if="${declaration.statut == 'VALIDE'}">Validée</span>
-                    <span th:if="${declaration.statut == 'INVALIDE'}">Invalidée</span>
+                    <span th:if="${declaration.statut == statutDeclaration.EN_ATTENTE}">En attente</span>
+                    <span th:if="${declaration.statut == statutDeclaration.VALIDE}">Validée</span>
+                    <span th:if="${declaration.statut == statutDeclaration.INVALIDE}">Invalidée</span>
                 </td>
                 <td th:text="${#dates.format(declaration.dateValidation, 'yyyy-MM-dd HH:mm:ss')}"></td>
                 <td th:text="${declaration.user != null ? declaration.user.getFullName() : 'N/A'}"></td>
@@ -54,10 +53,10 @@
 
                     <!-- Boutons pour valider ou invalider la déclaration -->
                     <form method="post" th:action="@{'/declaration/validate/' + ${declaration.id}}">
-                        <button type="submit" th:if="${declaration.statut == 'EN_ATTENTE'}">Valider</button>
+                        <button type="submit" th:if="${declaration.statut.toString() == statutDeclaration.EN_ATTENTE.toString()}">Valider</button>
                     </form>
                     <form method="post" th:action="@{'/declaration/invalidate/' + ${declaration.id}}">
-                        <button type="submit" th:if="${declaration.statut == 'EN_ATTENTE'}">Invalider</button>
+                        <button type="submit" th:if="${declaration.statut.toString() == statutDeclaration.EN_ATTENTE.toString()}">Invalider</button>
                     </form>
                 </td>
             </tr>

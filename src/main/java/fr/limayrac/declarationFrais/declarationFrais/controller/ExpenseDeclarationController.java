@@ -6,6 +6,8 @@ import fr.limayrac.declarationFrais.declarationFrais.model.User;
 import fr.limayrac.declarationFrais.declarationFrais.repository.ExpenseDeclarationRepository;
 import fr.limayrac.declarationFrais.declarationFrais.security.CustomUserDetails;
 import fr.limayrac.declarationFrais.declarationFrais.service.UserService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -20,6 +22,7 @@ import java.util.Optional;
 @RequestMapping("/declaration")
 public class ExpenseDeclarationController {
 
+    private static final Logger logger = LoggerFactory.getLogger(ExpenseDeclarationController.class);
     @Autowired
     private ExpenseDeclarationRepository expenseDeclarationRepository;
     @Autowired
@@ -70,11 +73,11 @@ public class ExpenseDeclarationController {
             ExpenseDeclaration expenseDeclaration = optionalExpenseDeclaration.get();
             expenseDeclaration.setStatut(statutDeclaration.VALIDE); // Mettez à jour le statut
 
-            // Ajoutez ici le code pour enregistrer la mise à jour dans le repository
-
-            // Redirigez vers la page de la liste des déclarations après la validation
+            expenseDeclarationRepository.save(expenseDeclaration);
             return "redirect:/declaration/all";
         }
+
+        logger.debug("ExpenseDeclaration non trouvé. ID=" + id);
 
         return showAllExpenseDeclarations(model);
     }

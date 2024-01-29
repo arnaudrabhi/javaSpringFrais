@@ -38,6 +38,10 @@ public class BankDetailsController {
 
     @PostMapping("/add")
     public String addBankDetails(@ModelAttribute("bankDetails") BankDetails bankDetails) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
+        User loggedInUser = customUserDetails.getUser();
+        bankDetails.setUser(loggedInUser);
         bankDetailsService.saveBankDetails(bankDetails);
         return "redirect:/bankDetails/list";
     }
