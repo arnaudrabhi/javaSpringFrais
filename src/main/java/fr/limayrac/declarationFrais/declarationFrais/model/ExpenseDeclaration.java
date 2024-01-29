@@ -62,6 +62,7 @@ public class ExpenseDeclaration implements Serializable {
     public ExpenseDeclaration() {
         this.created_at = Instant.now();
         this.updated_at = Instant.now();
+        this.dateDeclaration = Instant.now();
     }
 
     public void setBankDetails(BankDetails bankDetails) {
@@ -141,6 +142,13 @@ public class ExpenseDeclaration implements Serializable {
         }
 
         return null;
+    }
+
+    public double getMontantTransport() {
+        double montant = 0;
+        for (TransportExpense transportExpense: transportExpenses) {
+            montant +=
+        }
     }
 
 

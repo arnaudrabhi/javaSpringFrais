@@ -28,8 +28,8 @@ public class ExpenseLog {
     private Double montantRepas;
     private Double montantLogement;
     private Double montantTransport;
-    private Instant typeLogement;
-    private Instant TypeTransport;
+
+    private String typeOperation;
 
     @Temporal(TemporalType.DATE)
     private Instant created_at;
@@ -42,6 +42,22 @@ public class ExpenseLog {
     private ExpenseDeclaration expenseDeclaration;
 
     public ExpenseLog() {
+        this.created_at = Instant.now();
+        this.updated_at = Instant.now();
+    }
+
+    public ExpenseLog(ExpenseDeclaration expenseDeclaration) {
+        this.expenseDeclaration = expenseDeclaration;
+        this.montantTotal = expenseDeclaration.getMontantTotal();
+        this.montantRepas = expenseDeclaration.getMontantRepas();
+        this.montantLogement = expenseDeclaration.getMontantLogement();
+        this.montantTransport = expenseDeclaration.getMontantTransport();
+
+
+        this.setTypeOperation("Create");
+
+
+
         this.created_at = Instant.now();
         this.updated_at = Instant.now();
     }
