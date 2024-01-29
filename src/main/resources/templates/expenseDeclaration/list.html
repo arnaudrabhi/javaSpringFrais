@@ -51,13 +51,18 @@
                 <td>
                     <a th:href="@{'/declaration/details/' + ${declaration.id}}">Détails</a>
 
-                    <!-- Boutons pour valider ou invalider la déclaration -->
-                    <form method="post" th:action="@{'/declaration/validate/' + ${declaration.id}}">
-                        <button type="submit" th:if="${declaration.statut.toString() == statutDeclaration.EN_ATTENTE.toString()}">Valider</button>
-                    </form>
-                    <form method="post" th:action="@{'/declaration/invalidate/' + ${declaration.id}}">
-                        <button type="submit" th:if="${declaration.statut.toString() == statutDeclaration.EN_ATTENTE.toString()}">Invalider</button>
-                    </form>
+                    <div class="col">
+                        <form method="post" th:action="@{'/declaration/validate/' + ${declaration.id}}">
+                            <button class="btn btn-success" type="submit" th:if="${declaration.statut == statutDeclaration.EN_ATTENTE}">Valider</button>
+                        </form>
+                    </div>
+                    <div class="col">
+                        <form method="post" th:action="@{'/declaration/invalidate/' + ${declaration.id}}">
+                            <button class="btn btn-danger" type="submit" th:if="${declaration.statut == statutDeclaration.EN_ATTENTE}">Invalider</button>
+                        </form>
+                    </div>
+
+
                 </td>
             </tr>
             </tbody>
